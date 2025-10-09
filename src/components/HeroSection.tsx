@@ -6,7 +6,6 @@ interface HeroSectionProps {
   title?: string;
   subtitle?: string;
   ctaText?: string;
-  imageUrl?: string;
   onCtaClick?: () => void;
 }
 
@@ -32,7 +31,6 @@ const HeroSection = ({
   title,
   subtitle = "Elevate your space with our curated collection of handcrafted lighting fixtures",
   ctaText = "Explore Collections",
-  imageUrl = "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=1512&q=80",
   onCtaClick = () => {},
 }: HeroSectionProps) => {
   const prefersReducedMotion = useReducedMotion();
@@ -121,7 +119,7 @@ const HeroSection = ({
         <span>{displayedWord}</span>
         <span
           aria-hidden="true"
-          className={`ml-1 inline-block h-[1em] w-[2px] bg-white ${
+          className={`ml-1 inline-block h-[1em] w-[2px] bg-gray-900 ${
             isComplete ? "opacity-0" : "animate-pulse"
           }`}
         />
@@ -134,21 +132,6 @@ const HeroSection = ({
 
   return (
     <section className="relative w-full h-[800px] bg-white overflow-hidden">
-      {/* Background image with parallax effect */}
-      <motion.div
-        className="absolute inset-0 w-full h-full"
-        initial={{ scale: 1.05 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      >
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        />
-        <div className="absolute inset-0 bg-black/20" />
-      </motion.div>
-
-      {/* Content overlay */}
       <div className="relative h-full flex flex-col justify-center px-6 md:px-16 lg:px-24 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -156,15 +139,15 @@ const HeroSection = ({
           transition={{ duration: 0.8, delay: 0.5 }}
           className="max-w-2xl"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6">
             {headingContent}
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-10">{subtitle}</p>
+          <p className="text-lg md:text-xl text-gray-700 mb-10">{subtitle}</p>
           <Button
             onClick={onCtaClick}
-            variant="outline"
+            variant="default"
             size="lg"
-            className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 transition-all duration-300"
+            className="bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300"
           >
             {ctaText}
           </Button>
