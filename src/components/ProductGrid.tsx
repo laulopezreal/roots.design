@@ -14,6 +14,8 @@ interface ProductGridProps {
   products?: Product[];
   title?: string;
   subtitle?: string;
+  id?: string;
+  className?: string;
 }
 
 const ProductGrid = ({
@@ -85,6 +87,8 @@ const ProductGrid = ({
   ],
   title = "Our Collection",
   subtitle = "Discover our curated selection of premium lighting solutions",
+  id,
+  className = "",
 }: ProductGridProps) => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
@@ -121,7 +125,10 @@ const ProductGrid = ({
   };
 
   return (
-    <section className="w-full py-16 px-4 md:px-8 lg:px-16 bg-white">
+    <section
+      id={id}
+      className={`w-full py-16 px-4 md:px-8 lg:px-16 bg-white ${className}`.trim()}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-tight">

@@ -3,8 +3,66 @@ import { motion } from "framer-motion";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
 import ProductGrid from "./ProductGrid";
+import ProductCard from "./ProductCard";
+import SectionFacade from "./SectionFacade";
+
+const newArrivalProducts = [
+  {
+    id: "na-1",
+    name: "Opaline Sphere Pendant",
+    price: 325,
+    image:
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
+  },
+  {
+    id: "na-2",
+    name: "Sculpted Marble Sconce",
+    price: 285,
+    image:
+      "https://images.unsplash.com/photo-1505692069463-26a9ebc09a61?w=800&q=80",
+  },
+  {
+    id: "na-3",
+    name: "Velvet Drum Table Lamp",
+    price: 210,
+    image:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
+  },
+  {
+    id: "na-4",
+    name: "Linear Cascade Chandelier",
+    price: 640,
+    image:
+      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=800&q=80",
+  },
+];
+
+const aboutHighlights = [
+  {
+    title: "Crafted with Passion",
+    description:
+      "Every fixture begins as a sketch inspired by architectural lines and the interplay of light. Our artisans translate those ideas into forms that feel both modern and enduring.",
+  },
+  {
+    title: "Sustainable Materials",
+    description:
+      "We partner with responsible suppliers and use recycled metals, FSC-certified woods, and low-impact finishes to ensure beauty never compromises the planet.",
+  },
+  {
+    title: "Design Services",
+    description:
+      "From concept to installation, our team collaborates with designers and homeowners to tailor lighting plans that elevate every room's atmosphere.",
+  },
+];
 
 const HomePage = () => {
+  const handleNavigate = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -15,100 +73,286 @@ const HomePage = () => {
         transition={{ duration: 0.5 }}
         className="w-full"
       >
-        <HeroSection />
+        <HeroSection onCtaClick={() => handleNavigate("collections")} />
 
-        <section className="py-16 px-4 md:px-8 lg:px-16 max-w-[1920px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-12 text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
-              Our Collections
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Discover our curated selection of premium lighting fixtures,
-              designed to elevate your space with elegance and sophistication.
-            </p>
-          </motion.div>
+        <SectionFacade />
 
-          <ProductGrid />
+        <ProductGrid
+          id="collections"
+          title="Collections"
+          subtitle="Discover lighting families that pair sculptural silhouettes with purposeful illumination for every room."
+        />
+
+        <section
+          id="new-arrivals"
+          className="w-full bg-gray-50 py-16 px-4 md:px-8 lg:px-16"
+        >
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 text-center"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
+                New Arrivals
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Fresh from our studio: limited-release designs that celebrate
+                materiality, proportion, and the artistry of light.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {newArrivalProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                >
+                  <ProductCard
+                    id={product.id}
+                    name={product.name}
+                    price={product.price}
+                    image={product.image}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </section>
 
-        <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
-          <div className="max-w-[1920px] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <motion.div
+        <section
+          id="about"
+          className="w-full bg-white py-16 px-4 md:px-8 lg:px-16"
+        >
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 text-center"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
+                About Roots Design
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We create lighting that feels at once refined and soulful,
+                blending modern engineering with timeless craft.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+              <motion.article
+                id="our-story"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="aspect-square relative overflow-hidden"
+                className="relative overflow-hidden rounded-3xl"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=800&q=80"
-                  alt="Elegant interior with lighting fixture"
-                  className="object-cover w-full h-full"
+                  src="https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1200&q=80"
+                  alt="Designers collaborating in a studio"
+                  className="h-full w-full object-cover"
                 />
-              </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                  <span className="text-xs uppercase tracking-[0.4em] text-white/70">
+                    Our Story
+                  </span>
+                  <h3 className="mt-4 text-3xl font-light">Rooted in Craft</h3>
+                  <p className="mt-3 text-sm text-white/80">
+                    What began as a small atelier in 2010 has grown into a
+                    multidisciplinary studio celebrated for its sculptural
+                    approach to light. Each collection is a dialogue between
+                    heritage craftsmanship and contemporary design.
+                  </p>
+                  <a
+                    href="#contact"
+                    className="mt-6 inline-flex items-center text-sm font-medium text-white transition-colors hover:text-gray-200"
+                  >
+                    Connect with our team
+                    <svg
+                      className="ml-2 h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12H19M19 12L13 6M19 12L13 18"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </motion.article>
 
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="flex flex-col justify-center"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="space-y-8"
               >
-                <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
-                  Crafted with Passion
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Each piece in our collection is meticulously designed and
-                  crafted using the finest materials. Our lighting fixtures are
-                  more than just functional elements—they are statement pieces
-                  that transform spaces and create ambiance.
-                </p>
-                <button className="self-start bg-transparent hover:bg-gray-900 text-gray-900 hover:text-white border border-gray-900 px-8 py-3 transition-colors duration-300">
-                  Our Story
-                </button>
+                {aboutHighlights.map((highlight) => (
+                  <div key={highlight.title} className="border-b border-gray-200 pb-6 last:border-b-0">
+                    <h3 className="text-2xl font-light text-gray-900">
+                      {highlight.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed">
+                      {highlight.description}
+                    </p>
+                  </div>
+                ))}
+
+                <div className="rounded-3xl bg-gray-900 p-8 text-white">
+                  <h4 className="text-xl font-light">Studio Visits</h4>
+                  <p className="mt-3 text-sm text-white/80">
+                    Experience our collections in person by scheduling a visit
+                    to our downtown showroom. Guided appointments offer tailored
+                    lighting plans for residential and commercial projects.
+                  </p>
+                  <a
+                    href="#contact"
+                    className="mt-6 inline-flex items-center text-sm font-medium text-white/90 hover:text-white"
+                  >
+                    Book an appointment
+                    <svg
+                      className="ml-2 h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12H19M19 12L13 6M19 12L13 18"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 px-4 md:px-8 lg:px-16 max-w-[1920px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
-              Join Our Community
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Subscribe to our newsletter for exclusive offers, design
-              inspiration, and new product announcements.
-            </p>
-          </motion.div>
+        <section
+          id="contact"
+          className="w-full bg-gray-50 py-16 px-4 md:px-8 lg:px-16"
+        >
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
+                Contact
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Whether you&apos;re designing a new space or refreshing a single
+                room, we&apos;re here to help. Reach out for product guidance,
+                trade partnerships, or custom commissions.
+              </p>
 
-          <div className="max-w-md mx-auto">
-            <form className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-grow px-4 py-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-900"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-gray-900 text-white px-6 py-3 hover:bg-gray-800 transition-colors duration-300"
-              >
-                Subscribe
-              </button>
-            </form>
+              <div className="space-y-6 text-sm text-gray-700">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
+                    Visit
+                  </h3>
+                  <p className="mt-2">
+                    245 Mercer Street<br />
+                    Suite 210<br />
+                    New York, NY 10012
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
+                    Call
+                  </h3>
+                  <p className="mt-2">(212) 555-0198</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
+                    Email
+                  </h3>
+                  <p className="mt-2">hello@rootsdesign.com</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
+                    Hours
+                  </h3>
+                  <p className="mt-2">
+                    Monday – Friday: 10am – 6pm
+                    <br />
+                    Saturday: 11am – 4pm
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="rounded-3xl bg-white p-8 shadow-lg shadow-gray-200/40"
+            >
+              <h3 className="text-xl font-light text-gray-900 mb-6">
+                Send Us a Message
+              </h3>
+              <form className="space-y-5">
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="mt-2 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    className="mt-2 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
+                    Message
+                  </label>
+                  <textarea
+                    placeholder="Tell us about your project"
+                    className="mt-2 h-32 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-gray-800"
+                >
+                  Submit
+                </button>
+              </form>
+            </motion.div>
           </div>
         </section>
       </motion.main>
