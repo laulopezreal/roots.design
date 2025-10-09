@@ -312,7 +312,7 @@ const HomePage = () => {
               <h3 className="text-xl font-light text-gray-900 mb-6">
                 Send Us a Message
               </h3>
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                 <div>
                   <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
                     Name
