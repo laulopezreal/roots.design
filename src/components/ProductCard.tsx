@@ -6,7 +6,7 @@ interface ProductCardProps {
   id?: string;
   name?: string;
   price?: number;
-  imageUrl?: string;
+  image?: string;
   onQuickAdd?: () => void;
 }
 
@@ -14,7 +14,7 @@ const ProductCard = ({
   id = "1",
   name = "Pendant Light",
   price = 299,
-  imageUrl = "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
+  image = "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
   onQuickAdd = () => console.log("Quick add clicked"),
 }: ProductCardProps) => {
   return (
@@ -26,7 +26,7 @@ const ProductCard = ({
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <img
-          src={imageUrl}
+          src={image}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
