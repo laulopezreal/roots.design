@@ -116,7 +116,7 @@ const HomePage = () => {
       <footer className="bg-gray-900 text-white py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-light mb-4">Luminaire Authentik</h3>
+            <h3 className="text-xl font-light mb-4">Roots Design</h3>
             <p className="text-gray-400 mb-6">
               Elevating spaces with premium lighting solutions since 2010.
             </p>
@@ -272,7 +272,7 @@ const HomePage = () => {
         </div>
 
         <div className="max-w-[1920px] mx-auto pt-8 mt-8 border-t border-gray-800 text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center">
-          <p>© 2023 Luminaire Authentik. All rights reserved.</p>
+          <p>© 2023 Roots Design. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
