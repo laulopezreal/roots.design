@@ -147,7 +147,7 @@ const HeroSection = ({
             onClick={onCtaClick}
             variant="default"
             size="lg"
-            className="bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300"
+            className="shadow-none transition-all duration-300"
           >
             {ctaText}
           </Button>
