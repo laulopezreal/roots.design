@@ -132,7 +132,7 @@ const HeroSection = ({
 
   return (
     <section className="relative w-full h-[800px] bg-white overflow-hidden">
-      <div className="relative h-full flex flex-col justify-center px-6 md:px-16 lg:px-24 z-10">
+      <div className="h-full flex flex-col justify-center px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
