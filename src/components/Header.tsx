@@ -49,7 +49,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
         {/* Logo */}
         <div className="flex-1 md:flex-none flex justify-start md:justify-center">
           <Link to="/" className="text-2xl font-light tracking-wider">
-            LUMINAIRE
+            Roots Design
           </Link>
         </div>
 
