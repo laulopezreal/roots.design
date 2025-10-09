@@ -28,10 +28,10 @@ const Header = ({ transparent = false }: HeaderProps) => {
   const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-sm py-4" : transparent ? "bg-transparent py-6" : "bg-white py-6"}`;
 
   const navLinks = [
-    { name: "Collections", path: "/collections" },
-    { name: "New Arrivals", path: "/new-arrivals" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Collections", href: "#collections" },
+    { name: "New Arrivals", href: "#new-arrivals" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
@@ -58,12 +58,12 @@ const Header = ({ transparent = false }: HeaderProps) => {
           <ul className="flex space-x-8">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <Link
-                  to={link.path}
+                <a
+                  href={link.href}
                   className="text-sm tracking-wide hover:text-gray-500 transition-colors"
                 >
                   {link.name}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -104,13 +104,13 @@ const Header = ({ transparent = false }: HeaderProps) => {
               <ul className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      to={link.path}
+                    <a
+                      href={link.href}
                       className="text-sm tracking-wide block py-2"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.name}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
