@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 interface ProductCardProps {
   id?: string;
   name?: string;
+  brand?: string;
   price?: number;
   image?: string;
   onQuickAdd?: () => void;
@@ -13,6 +14,7 @@ interface ProductCardProps {
 const ProductCard = ({
   id = "1",
   name = "Pendant Light",
+  brand = "Roots Studio",
   price = 299,
   image = "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
   onQuickAdd = () => console.log("Quick add clicked"),
@@ -48,6 +50,11 @@ const ProductCard = ({
 
       {/* Product info */}
       <div className="pt-4 pb-2 space-y-1 text-center">
+        {brand && (
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+            {brand}
+          </p>
+        )}
         <h3 className="text-sm font-light text-gray-900">{name}</h3>
         <p className="text-sm font-light text-gray-700">${price}</p>
       </div>

@@ -10,6 +10,7 @@ const newArrivalProducts = [
   {
     id: "na-1",
     name: "Opaline Sphere Pendant",
+    brand: "Roots Atelier",
     price: 325,
     image:
       "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
@@ -17,6 +18,7 @@ const newArrivalProducts = [
   {
     id: "na-2",
     name: "Sculpted Marble Sconce",
+    brand: "Lustre House",
     price: 285,
     image:
       "https://images.unsplash.com/photo-1505692069463-26a9ebc09a61?w=800&q=80",
@@ -24,6 +26,7 @@ const newArrivalProducts = [
   {
     id: "na-3",
     name: "Velvet Drum Table Lamp",
+    brand: "Foundry Co.",
     price: 210,
     image:
       "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
@@ -31,6 +34,7 @@ const newArrivalProducts = [
   {
     id: "na-4",
     name: "Linear Cascade Chandelier",
+    brand: "Maison Arc",
     price: 640,
     image:
       "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=800&q=80",
@@ -116,6 +120,7 @@ const HomePage = () => {
                   <ProductCard
                     id={product.id}
                     name={product.name}
+                    brand={product.brand}
                     price={product.price}
                     image={product.image}
                   />
