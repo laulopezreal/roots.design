@@ -21,7 +21,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <motion.div
-      className="group relative w-full h-full bg-white overflow-hidden"
+      className="group relative w-full h-full overflow-hidden bg-bed-linen"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -34,14 +34,14 @@ const ProductCard = ({
         />
 
         {/* Overlay that appears on hover */}
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-dark-chocolate/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Quick add button that appears on hover */}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
           <Button
             onClick={onQuickAdd}
             variant="outline"
-            className="w-full bg-white hover:bg-gray-100 border-gray-200 text-gray-900 text-sm font-light"
+            className="w-full border-vanilla-cream bg-bed-linen text-sm font-light text-dark-chocolate transition-colors hover:bg-vanilla-cream"
           >
             Quick Add
           </Button>
@@ -51,12 +51,12 @@ const ProductCard = ({
       {/* Product info */}
       <div className="pt-4 pb-2 space-y-1 text-center">
         {brand && (
-          <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+          <p className="text-xs uppercase tracking-[0.2em] text-dark-chocolate/50">
             {brand}
           </p>
         )}
-        <h3 className="text-sm font-light text-gray-900">{name}</h3>
-        <p className="text-sm font-light text-gray-700">${price}</p>
+        <h3 className="text-sm font-light text-dark-chocolate">{name}</h3>
+        <p className="text-sm font-light text-dark-chocolate/80">${price}</p>
       </div>
     </motion.div>
   );

@@ -119,7 +119,7 @@ const HeroSection = ({
         <span>{displayedWord}</span>
         <span
           aria-hidden="true"
-          className={`ml-1 inline-block h-[1em] w-[2px] bg-gray-900 ${
+          className={`ml-1 inline-block h-[1em] w-[2px] bg-dark-chocolate ${
             isComplete ? "opacity-0" : "animate-pulse"
           }`}
         />
@@ -131,7 +131,7 @@ const HeroSection = ({
   const headingContent = shouldAnimateTitle ? animatedTitle : title ?? finalStaticTitle;
 
   return (
-    <section className="relative w-full h-[800px] bg-white overflow-hidden">
+    <section className="relative w-full h-[800px] overflow-hidden bg-bed-linen">
       <div className="h-full flex flex-col justify-center px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -139,10 +139,10 @@ const HeroSection = ({
           transition={{ duration: 0.8, delay: 0.5 }}
           className="max-w-2xl"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6">
+          <h1 className="mb-6 text-4xl font-light text-dark-chocolate md:text-5xl lg:text-6xl">
             {headingContent}
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 mb-10">{subtitle}</p>
+          <p className="mb-10 text-lg text-dark-chocolate/80 md:text-xl">{subtitle}</p>
           <Button
             onClick={onCtaClick}
             variant="default"
