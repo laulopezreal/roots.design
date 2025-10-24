@@ -90,11 +90,11 @@ const CollectionsSection = ({
   };
 
   return (
-    <section className="w-full bg-bed-linen py-20 px-4 md:px-8 lg:px-16">
-      <div className="mx-auto max-w-7xl">
+    <section className="w-full py-20 px-4 md:px-8 lg:px-16 bg-white">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -102,7 +102,7 @@ const CollectionsSection = ({
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 tracking-tight">
             {title}
           </h2>
-          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-dark-chocolate/70">
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -118,11 +118,11 @@ const CollectionsSection = ({
             <motion.div
               key={collection.id}
               variants={itemVariants}
-              className={`group cursor-pointer ${
+              className={`group h-full cursor-pointer ${
                 collection.featured && index < 2 ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
-              <div className="relative overflow-hidden rounded-sm bg-vanilla-cream">
+              <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-gray-100 bg-gray-50/90 shadow-sm transition-all duration-500 hover:border-gray-200 hover:shadow-lg">
                 {/* Collection Image */}
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <img
@@ -130,11 +130,11 @@ const CollectionsSection = ({
                     alt={collection.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-dark-chocolate/0 transition-all duration-500 group-hover:bg-dark-chocolate/20" />
-
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
+                  
                   {/* Featured Badge */}
                   {collection.featured && (
-                    <div className="absolute top-4 left-4 bg-bed-linen/90 px-3 py-1 text-xs font-medium tracking-wide text-dark-chocolate backdrop-blur-sm">
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium tracking-wide">
                       FEATURED
                     </div>
                   )}
@@ -143,7 +143,7 @@ const CollectionsSection = ({
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <Button
                       variant="outline"
-                      className="border-bed-linen/40 bg-bed-linen/10 text-bed-linen backdrop-blur-sm hover:bg-bed-linen/20"
+                      className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
                     >
                       Explore Collection
                     </Button>
@@ -153,14 +153,14 @@ const CollectionsSection = ({
                 {/* Collection Info */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-light tracking-tight transition-colors duration-300 group-hover:text-desert-sand">
+                    <h3 className="text-xl font-light tracking-tight group-hover:text-gray-600 transition-colors duration-300">
                       {collection.name}
                     </h3>
-                    <span className="text-sm text-dark-chocolate/60">
+                    <span className="text-sm text-gray-500">
                       {collection.itemCount} pieces
                     </span>
                   </div>
-                  <p className="text-sm leading-relaxed text-dark-chocolate/70">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     {collection.description}
                   </p>
                 </div>
@@ -171,7 +171,7 @@ const CollectionsSection = ({
 
         {/* View All Collections CTA */}
         <motion.div
-          className="mt-16 text-center"
+          className="text-center mt-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -179,7 +179,7 @@ const CollectionsSection = ({
           <Button
             variant="outline"
             size="lg"
-            className="border-desert-sand/60 text-dark-chocolate transition-all duration-300 hover:bg-vanilla-cream"
+            className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300"
           >
             View All Collections
           </Button>

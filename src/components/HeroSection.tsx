@@ -119,7 +119,7 @@ const HeroSection = ({
         <span>{displayedWord}</span>
         <span
           aria-hidden="true"
-          className={`ml-1 inline-block h-[1em] w-[2px] bg-dark-chocolate ${
+          className={`ml-1 inline-block h-[1em] w-[2px] bg-gray-900 ${
             isComplete ? "opacity-0" : "animate-pulse"
           }`}
         />
@@ -131,23 +131,24 @@ const HeroSection = ({
   const headingContent = shouldAnimateTitle ? animatedTitle : title ?? finalStaticTitle;
 
   return (
-    <section className="relative w-full h-[800px] overflow-hidden bg-bed-linen">
+    <section className="relative w-full h-[800px] overflow-hidden bg-gradient-to-br from-white via-white to-gray-50">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.08),transparent_55%)] opacity-60" />
       <div className="h-full flex flex-col justify-center px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-2xl"
+          className="relative z-10 max-w-2xl rounded-3xl bg-white/80 p-10 shadow-lg shadow-black/5 ring-1 ring-black/5 backdrop-blur"
         >
-          <h1 className="mb-6 text-4xl font-light text-dark-chocolate md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6">
             {headingContent}
           </h1>
-          <p className="mb-10 text-lg text-dark-chocolate/80 md:text-xl">{subtitle}</p>
+          <p className="text-lg md:text-xl text-gray-700 mb-10">{subtitle}</p>
           <Button
             onClick={onCtaClick}
             variant="default"
             size="lg"
-            className="shadow-none transition-all duration-300"
+            className="shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
             {ctaText}
           </Button>

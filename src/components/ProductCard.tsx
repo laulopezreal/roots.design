@@ -21,27 +21,27 @@ const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <motion.div
-      className="group relative w-full h-full overflow-hidden bg-bed-linen"
+      className="group relative w-full h-full overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-500 hover:shadow-lg hover:ring-black/10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-t-2xl">
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
         {/* Overlay that appears on hover */}
-        <div className="absolute inset-0 bg-dark-chocolate/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-black/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Quick add button that appears on hover */}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
           <Button
             onClick={onQuickAdd}
             variant="outline"
-            className="w-full border-vanilla-cream bg-bed-linen text-sm font-light text-dark-chocolate transition-colors hover:bg-vanilla-cream"
+            className="w-full border-gray-200 bg-white text-sm font-light text-gray-900 shadow-sm transition-shadow hover:bg-gray-100 hover:shadow"
           >
             Quick Add
           </Button>
@@ -49,14 +49,14 @@ const ProductCard = ({
       </div>
 
       {/* Product info */}
-      <div className="pt-4 pb-2 space-y-1 text-center">
+      <div className="space-y-1 px-6 pb-6 pt-4 text-center">
         {brand && (
-          <p className="text-xs uppercase tracking-[0.2em] text-dark-chocolate/50">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
             {brand}
           </p>
         )}
-        <h3 className="text-sm font-light text-dark-chocolate">{name}</h3>
-        <p className="text-sm font-light text-dark-chocolate/80">${price}</p>
+        <h3 className="text-sm font-light text-gray-900">{name}</h3>
+        <p className="text-sm font-light text-gray-700">${price}</p>
       </div>
     </motion.div>
   );

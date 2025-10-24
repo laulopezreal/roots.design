@@ -244,60 +244,62 @@ const ProductGrid = ({
   return (
     <section
       id={id}
-      className={`w-full bg-bed-linen py-16 px-4 md:px-8 lg:px-16 ${className}`.trim()}
+      className={`w-full py-16 px-4 md:px-8 lg:px-16 bg-white ${className}`.trim()}
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-tight">
             {title}
           </h2>
-          <p className="mx-auto max-w-2xl text-dark-chocolate/70">{subtitle}</p>
+          <p className="text-gray-600 max-w-2xl mx-auto">{subtitle}</p>
         </div>
 
-        <div className="flex flex-col gap-6 mb-10">
-          <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
-            <div className="relative w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-dark-chocolate/40" />
-              <input
-                type="search"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search by name, brand, or collection"
-                className="w-full border border-vanilla-cream bg-bed-linen py-2 pl-10 pr-3 text-sm text-dark-chocolate placeholder:text-dark-chocolate/40 focus:border-dark-chocolate focus:outline-none focus:ring-1 focus:ring-dark-chocolate"
-                aria-label="Search products"
-              />
-            </div>
+        <div className="mb-10 space-y-6">
+          <div className="rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div className="relative w-full lg:max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search by name, brand, or collection"
+                  className="w-full border border-gray-200 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
+                  aria-label="Search products"
+                />
+              </div>
 
-            <div className="flex flex-wrap gap-3 w-full lg:justify-end">
-              <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-dark-chocolate/60">
-                Brand
-                <select
-                  value={selectedBrand}
-                  onChange={(event) => setSelectedBrand(event.target.value)}
-                  className="border border-vanilla-cream bg-bed-linen py-2 pl-3 pr-8 text-sm text-dark-chocolate focus:border-dark-chocolate focus:outline-none"
-                >
-                  {availableBrands.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand === "all" ? "All Brands" : brand}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className="flex w-full flex-wrap gap-3 lg:justify-end">
+                <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
+                  Brand
+                  <select
+                    value={selectedBrand}
+                    onChange={(event) => setSelectedBrand(event.target.value)}
+                    className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
+                  >
+                    {availableBrands.map((brand) => (
+                      <option key={brand} value={brand}>
+                        {brand === "all" ? "All Brands" : brand}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-              <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-dark-chocolate/60">
-                Price
-                <select
-                  value={selectedPriceRange}
-                  onChange={(event) => setSelectedPriceRange(event.target.value)}
-                  className="border border-vanilla-cream bg-bed-linen py-2 pl-3 pr-8 text-sm text-dark-chocolate focus:border-dark-chocolate focus:outline-none"
-                >
-                  {PRICE_RANGES.map((range) => (
-                    <option key={range.id} value={range.id}>
-                      {range.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
+                  Price
+                  <select
+                    value={selectedPriceRange}
+                    onChange={(event) => setSelectedPriceRange(event.target.value)}
+                    className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
+                  >
+                    {PRICE_RANGES.map((range) => (
+                      <option key={range.id} value={range.id}>
+                        {range.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
             </div>
           </div>
 
@@ -308,8 +310,8 @@ const ProductGrid = ({
                 onClick={() => setActiveFilter(category.id)}
                 className={`px-4 py-2 text-sm transition-colors duration-300 ${
                   activeFilter === category.id
-                    ? "border-b border-dark-chocolate text-dark-chocolate"
-                    : "text-dark-chocolate/60 hover:text-desert-sand"
+                    ? "text-black border-b border-black"
+                    : "text-gray-500 hover:text-black"
                 }`}
               >
                 {category.name}
@@ -318,7 +320,7 @@ const ProductGrid = ({
           </div>
         </div>
 
-        <div className="mb-6 flex items-center justify-between text-xs text-dark-chocolate/60">
+        <div className="flex items-center justify-between text-xs text-gray-500 mb-6">
           <span>{filteredProducts.length} designs</span>
           {(searchQuery || selectedBrand !== "all" || selectedPriceRange !== "all") && (
             <button
@@ -328,7 +330,7 @@ const ProductGrid = ({
                 setSelectedBrand("all");
                 setSelectedPriceRange("all");
               }}
-              className="underline underline-offset-2 transition-colors hover:text-desert-sand"
+              className="underline underline-offset-2 hover:text-gray-700"
             >
               Clear refinements
             </button>
@@ -354,8 +356,8 @@ const ProductGrid = ({
         </motion.div>
 
         {filteredProducts.length === 0 && (
-          <div className="py-16 text-center">
-            <p className="text-dark-chocolate/60">No products match those filters just yet.</p>
+          <div className="text-center py-16">
+            <p className="text-gray-500">No products match those filters just yet.</p>
           </div>
         )}
       </div>

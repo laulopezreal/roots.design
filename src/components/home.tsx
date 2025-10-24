@@ -68,7 +68,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bed-linen text-dark-chocolate">
+    <div className="min-h-screen bg-white">
       <Header />
 
       <motion.main
@@ -89,9 +89,9 @@ const HomePage = () => {
 
         <section
           id="new-arrivals"
-          className="w-full bg-vanilla-cream py-16 px-4 md:px-8 lg:px-16"
+          className="w-full bg-gray-50 py-16 px-4 md:px-8 lg:px-16"
         >
-          <div className="mx-auto max-w-7xl">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -99,10 +99,10 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="mb-12 text-center"
             >
-              <h2 className="mb-4 text-3xl font-light text-dark-chocolate md:text-4xl">
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
                 New Arrivals
               </h2>
-              <p className="mx-auto max-w-2xl text-dark-chocolate/70">
+              <p className="text-gray-600 max-w-2xl mx-auto">
                 Fresh from our studio: limited-release designs that celebrate
                 materiality, proportion, and the artistry of light.
               </p>
@@ -132,9 +132,9 @@ const HomePage = () => {
 
         <section
           id="about"
-          className="w-full bg-bed-linen py-16 px-4 md:px-8 lg:px-16"
+          className="w-full bg-white py-16 px-4 md:px-8 lg:px-16"
         >
-          <div className="mx-auto max-w-6xl">
+          <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -142,10 +142,10 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="mb-12 text-center"
             >
-              <h2 className="mb-4 text-3xl font-light text-dark-chocolate md:text-4xl">
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
                 About Roots Design
               </h2>
-              <p className="mx-auto max-w-2xl text-dark-chocolate/70">
+              <p className="text-gray-600 max-w-2xl mx-auto">
                 We create lighting that feels at once refined and soulful,
                 blending modern engineering with timeless craft.
               </p>
@@ -165,13 +165,13 @@ const HomePage = () => {
                   alt="Designers collaborating in a studio"
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-chocolate/80 via-dark-chocolate/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-bed-linen">
-                  <span className="text-xs uppercase tracking-[0.4em] text-bed-linen/80">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                  <span className="text-xs uppercase tracking-[0.4em] text-white/70">
                     Our Story
                   </span>
                   <h3 className="mt-4 text-3xl font-light">Rooted in Craft</h3>
-                  <p className="mt-3 text-sm text-bed-linen/80">
+                  <p className="mt-3 text-sm text-white/80">
                     What began as a small atelier in 2010 has grown into a
                     multidisciplinary studio celebrated for its sculptural
                     approach to light. Each collection is a dialogue between
@@ -179,7 +179,7 @@ const HomePage = () => {
                   </p>
                   <a
                     href="#contact"
-                    className="mt-6 inline-flex items-center text-sm font-medium text-bed-linen transition-colors hover:text-vanilla-cream"
+                    className="mt-6 inline-flex items-center text-sm font-medium text-white transition-colors hover:text-gray-200"
                   >
                     Connect with our team
                     <svg
@@ -208,26 +208,26 @@ const HomePage = () => {
                 className="space-y-8"
               >
                 {aboutHighlights.map((highlight) => (
-                  <div key={highlight.title} className="border-b border-vanilla-cream pb-6 last:border-b-0">
-                    <h3 className="text-2xl font-light text-dark-chocolate">
+                  <div key={highlight.title} className="border-b border-gray-200 pb-6 last:border-b-0">
+                    <h3 className="text-2xl font-light text-gray-900">
                       {highlight.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-dark-chocolate/70">
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed">
                       {highlight.description}
                     </p>
                   </div>
                 ))}
 
-                <div className="rounded-3xl bg-dark-chocolate p-8 text-bed-linen">
+                <div className="rounded-3xl bg-gray-900 p-8 text-white">
                   <h4 className="text-xl font-light">Studio Visits</h4>
-                  <p className="mt-3 text-sm text-bed-linen/80">
+                  <p className="mt-3 text-sm text-white/80">
                     Experience our collections in person by scheduling a visit
                     to our downtown showroom. Guided appointments offer tailored
                     lighting plans for residential and commercial projects.
                   </p>
                   <a
                     href="#contact"
-                    className="mt-6 inline-flex items-center text-sm font-medium text-bed-linen/90 transition-colors hover:text-bed-linen"
+                    className="mt-6 inline-flex items-center text-sm font-medium text-white/90 hover:text-white"
                   >
                     Book an appointment
                     <svg
@@ -253,27 +253,27 @@ const HomePage = () => {
 
         <section
           id="contact"
-          className="w-full bg-vanilla-cream py-16 px-4 md:px-8 lg:px-16"
+          className="w-full bg-gray-50 py-16 px-4 md:px-8 lg:px-16"
         >
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="mb-6 text-3xl font-light text-dark-chocolate md:text-4xl">
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
                 Contact
               </h2>
-              <p className="mb-8 text-dark-chocolate/70">
+              <p className="text-gray-600 mb-8">
                 Whether you&apos;re designing a new space or refreshing a single
                 room, we&apos;re here to help. Reach out for product guidance,
                 trade partnerships, or custom commissions.
               </p>
 
-              <div className="space-y-6 text-sm text-dark-chocolate/80">
+              <div className="space-y-6 text-sm text-gray-700">
                 <div>
-                  <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-dark-chocolate">
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Visit
                   </h3>
                   <p className="mt-2">
@@ -283,19 +283,19 @@ const HomePage = () => {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-dark-chocolate">
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Call
                   </h3>
                   <p className="mt-2">(212) 555-0198</p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-dark-chocolate">
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Email
                   </h3>
                   <p className="mt-2">hello@rootsdesign.com</p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-dark-chocolate">
+                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Hours
                   </h3>
                   <p className="mt-2">
@@ -312,47 +312,47 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="rounded-3xl bg-bed-linen p-8 shadow-lg shadow-crrystal-water/40"
+              className="rounded-3xl bg-white p-8 shadow-lg shadow-gray-200/40"
             >
-              <h3 className="mb-6 text-xl font-light text-dark-chocolate">
+              <h3 className="text-xl font-light text-gray-900 mb-6">
                 Send Us a Message
               </h3>
               <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.3em] text-dark-chocolate/60">
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
                     Name
                   </label>
                   <input
                     type="text"
                     placeholder="Your name"
-                    className="mt-2 w-full rounded-lg border border-vanilla-cream px-4 py-3 text-sm transition-colors focus:border-desert-sand focus:outline-none focus:ring-0"
+                    className="mt-2 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.3em] text-dark-chocolate/60">
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
                     Email
                   </label>
                   <input
                     type="email"
                     placeholder="you@example.com"
-                    className="mt-2 w-full rounded-lg border border-vanilla-cream px-4 py-3 text-sm transition-colors focus:border-desert-sand focus:outline-none focus:ring-0"
+                    className="mt-2 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.3em] text-dark-chocolate/60">
+                  <label className="block text-xs uppercase tracking-[0.3em] text-gray-500">
                     Message
                   </label>
                   <textarea
                     placeholder="Tell us about your project"
-                    className="mt-2 h-32 w-full rounded-lg border border-vanilla-cream px-4 py-3 text-sm transition-colors focus:border-desert-sand focus:outline-none focus:ring-0"
+                    className="mt-2 h-32 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-dark-chocolate px-6 py-3 text-sm font-medium text-bed-linen transition-colors duration-300 hover:bg-dark-chocolate/90"
+                  className="w-full rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-gray-800"
                 >
                   Submit
                 </button>
@@ -362,17 +362,17 @@ const HomePage = () => {
         </section>
       </motion.main>
 
-      <footer className="bg-dark-chocolate py-16 px-4 text-bed-linen md:px-8 lg:px-16">
-        <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <footer className="bg-gray-900 text-white py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h3 className="text-xl font-light mb-4">Roots Design</h3>
-            <p className="mb-6 text-bed-linen/70">
+            <p className="text-gray-400 mb-6">
               Elevating spaces with premium lighting solutions since 2010.
             </p>
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 <span className="sr-only">Instagram</span>
                 <svg
@@ -390,7 +390,7 @@ const HomePage = () => {
               </a>
               <a
                 href="#"
-                className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 <span className="sr-only">Pinterest</span>
                 <svg
@@ -411,7 +411,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Collections
                 </a>
@@ -419,7 +419,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   New Arrivals
                 </a>
@@ -427,7 +427,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Best Sellers
                 </a>
@@ -435,7 +435,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Sale
                 </a>
@@ -449,7 +449,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Our Story
                 </a>
@@ -457,7 +457,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Craftsmanship
                 </a>
@@ -465,7 +465,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Sustainability
                 </a>
@@ -473,7 +473,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Press
                 </a>
@@ -487,7 +487,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Contact Us
                 </a>
@@ -495,7 +495,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Shipping & Returns
                 </a>
@@ -503,7 +503,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   FAQ
                 </a>
@@ -511,7 +511,7 @@ const HomePage = () => {
               <li>
                 <a
                   href="#"
-                  className="text-bed-linen/70 transition-colors hover:text-vanilla-cream"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   Care Instructions
                 </a>
@@ -520,13 +520,13 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-8 flex max-w-[1920px] flex-col items-center justify-between border-t border-vanilla-cream/40 pt-8 text-sm text-bed-linen/70 md:flex-row">
+        <div className="max-w-[1920px] mx-auto pt-8 mt-8 border-t border-gray-800 text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center">
           <p>© 2023 Roots Design. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="transition-colors hover:text-vanilla-cream">
+            <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="transition-colors hover:text-vanilla-cream">
+            <a href="#" className="hover:text-white transition-colors">
               Terms of Service
             </a>
           </div>
