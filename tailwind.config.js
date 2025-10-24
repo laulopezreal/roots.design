@@ -25,7 +25,7 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
         "bed-linen": "#F6F4E8",
         "vanilla-cream": "#E5E0C8",
-        "crrystal-water": "#BDD3C1",
+        "crystal-water": "#BDD3C1",
         "desert-sand": "#BFAB86",
         "dark-chocolate": "#3B352B",
         primary: {
