@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "./cart/CartContext";
 
 interface HeaderProps {
   transparent?: boolean;
@@ -10,7 +11,7 @@ interface HeaderProps {
 const Header = ({ transparent = false }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,9 +83,9 @@ const Header = ({ transparent = false }: HeaderProps) => {
             className="relative hover:text-gray-500 transition-colors"
           >
             <ShoppingBag size={20} />
-            {cartCount > 0 && (
+            {totalItems > 0 && (
               <span className="absolute -top-1 -right-1 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                {cartCount}
+                {totalItems}
               </span>
             )}
           </Link>
