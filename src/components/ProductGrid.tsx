@@ -254,50 +254,52 @@ const ProductGrid = ({
           <p className="text-gray-600 max-w-2xl mx-auto">{subtitle}</p>
         </div>
 
-        <div className="flex flex-col gap-6 mb-10">
-          <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
-            <div className="relative w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <input
-                type="search"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search by name, brand, or collection"
-                className="w-full border border-gray-200 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
-                aria-label="Search products"
-              />
-            </div>
+        <div className="mb-10 space-y-6">
+          <div className="rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div className="relative w-full lg:max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search by name, brand, or collection"
+                  className="w-full border border-gray-200 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
+                  aria-label="Search products"
+                />
+              </div>
 
-            <div className="flex flex-wrap gap-3 w-full lg:justify-end">
-              <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
-                Brand
-                <select
-                  value={selectedBrand}
-                  onChange={(event) => setSelectedBrand(event.target.value)}
-                  className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
-                >
-                  {availableBrands.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand === "all" ? "All Brands" : brand}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className="flex w-full flex-wrap gap-3 lg:justify-end">
+                <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
+                  Brand
+                  <select
+                    value={selectedBrand}
+                    onChange={(event) => setSelectedBrand(event.target.value)}
+                    className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
+                  >
+                    {availableBrands.map((brand) => (
+                      <option key={brand} value={brand}>
+                        {brand === "all" ? "All Brands" : brand}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-              <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
-                Price
-                <select
-                  value={selectedPriceRange}
-                  onChange={(event) => setSelectedPriceRange(event.target.value)}
-                  className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
-                >
-                  {PRICE_RANGES.map((range) => (
-                    <option key={range.id} value={range.id}>
-                      {range.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
+                  Price
+                  <select
+                    value={selectedPriceRange}
+                    onChange={(event) => setSelectedPriceRange(event.target.value)}
+                    className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
+                  >
+                    {PRICE_RANGES.map((range) => (
+                      <option key={range.id} value={range.id}>
+                        {range.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
             </div>
           </div>
 

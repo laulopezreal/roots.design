@@ -118,11 +118,11 @@ const CollectionsSection = ({
             <motion.div
               key={collection.id}
               variants={itemVariants}
-              className={`group cursor-pointer ${
+              className={`group h-full cursor-pointer ${
                 collection.featured && index < 2 ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
-              <div className="relative overflow-hidden bg-gray-50 rounded-sm">
+              <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-gray-100 bg-gray-50/90 shadow-sm transition-all duration-500 hover:border-gray-200 hover:shadow-lg">
                 {/* Collection Image */}
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <img

@@ -26,7 +26,18 @@ const Header = ({ transparent = false }: HeaderProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-sm py-4" : transparent ? "bg-transparent py-6" : "bg-white py-6"}`;
+  const headerClasses = [
+    "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+    isScrolled
+      ? "bg-white/95 py-4 shadow-sm ring-1 ring-black/5 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md"
+      : transparent
+        ? "bg-transparent py-6"
+        : "bg-white py-6 ring-1 ring-transparent",
+    "border-b border-transparent",
+    isScrolled ? "border-gray-100/80" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const navLinks = [
     { name: "Collections", href: "/#collections" },

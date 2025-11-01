@@ -131,13 +131,14 @@ const HeroSection = ({
   const headingContent = shouldAnimateTitle ? animatedTitle : title ?? finalStaticTitle;
 
   return (
-    <section className="relative w-full h-[800px] bg-white overflow-hidden">
+    <section className="relative w-full h-[800px] overflow-hidden bg-gradient-to-br from-white via-white to-gray-50">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.08),transparent_55%)] opacity-60" />
       <div className="h-full flex flex-col justify-center px-6 md:px-16 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-2xl"
+          className="relative z-10 max-w-2xl rounded-3xl bg-white/80 p-10 shadow-lg shadow-black/5 ring-1 ring-black/5 backdrop-blur"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6">
             {headingContent}
@@ -147,7 +148,7 @@ const HeroSection = ({
             onClick={onCtaClick}
             variant="default"
             size="lg"
-            className="shadow-none transition-all duration-300"
+            className="shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
             {ctaText}
           </Button>

@@ -42,12 +42,12 @@ const SectionFacade = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
           {sections.map((section, index) => (
             <motion.a
               key={section.title}
               href={section.href}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50/60 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:bg-white"
+              className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-50/60 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:bg-white hover:shadow-lg"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
