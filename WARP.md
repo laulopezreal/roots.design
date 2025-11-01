@@ -6,8 +6,8 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ### Build & Run
 - `npm run dev` - Start Vite development server with HMR
-- `npm run build` - Type check with tsc and build for production
-- `npm run build-no-errors` - Build even with TypeScript errors (same as build)
+- `npm run build` - Type-checks and builds for production. Note: this command proceeds with the build even if TypeScript errors are present.
+- `npm run build-no-errors` - An alias for `npm run build`.
 - `npm run preview` - Preview production build locally
 
 ### Code Quality
