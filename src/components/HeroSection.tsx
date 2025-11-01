@@ -29,7 +29,7 @@ const createInitialTypewriterState = (): TypewriterState => ({
 
 const HeroSection = ({
   title,
-  subtitle = "Elevate your space with our curated collection of handcrafted lighting fixtures",
+  subtitle = "Elevate your space with our curated collection of design furniture",
   ctaText = "Explore Collections",
   onCtaClick = () => {},
 }: HeroSectionProps) => {
