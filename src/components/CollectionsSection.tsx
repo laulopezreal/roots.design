@@ -64,8 +64,8 @@ const CollectionsSection = ({
       itemCount: 28,
     },
   ],
-  title = "Curated Collections",
-  subtitle = "Discover our thoughtfully assembled lighting collections, each telling a unique design story",
+  title = "Curated Collection",
+  subtitle = "Discover our thoughtfully assembled collections, each telling a unique design story",
 }: CollectionsSectionProps) => {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -181,7 +181,7 @@ const CollectionsSection = ({
             size="lg"
             className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300"
           >
-            View All Collections
+            View All Pieces in our Collection
           </Button>
         </motion.div>
       </div>

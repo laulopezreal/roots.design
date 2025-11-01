@@ -9,7 +9,7 @@ interface HeroSectionProps {
   onCtaClick?: () => void;
 }
 
-const TYPEWRITER_WORDS = ["Lighting", "Furniture", "Art", "Soul"] as const;
+const TYPEWRITER_WORDS = ["Pieces", "Furniture", "Art", "Design"] as const;
 const TYPEWRITER_BASE_TITLE = "Timeless";
 const TYPING_DELAY = 130;
 const DELETING_DELAY = 80;
@@ -30,7 +30,7 @@ const createInitialTypewriterState = (): TypewriterState => ({
 const HeroSection = ({
   title,
   subtitle = "Elevate your space with our curated collection of design furniture",
-  ctaText = "Explore Collections",
+  ctaText = "Explore The Collection",
   onCtaClick = () => {},
 }: HeroSectionProps) => {
   const prefersReducedMotion = useReducedMotion();

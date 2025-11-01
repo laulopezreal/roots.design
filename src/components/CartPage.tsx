@@ -104,7 +104,7 @@ const CartPage = () => {
               <div className="border border-dashed border-gray-200 rounded-lg p-8 text-center space-y-4">
                 <p className="text-gray-600">Your cart is currently empty.</p>
                 <Button asChild>
-                  <Link to="/">Browse collections</Link>
+                  <Link to="/">Browse The Collection</Link>
                 </Button>
               </div>
             ) : (

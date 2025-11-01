@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 
 const sections = [
   {
-    title: "Collections",
+    title: "The Collection",
     description:
-      "Explore lighting families curated to bring harmony to every room.",
+      "Explore our family of curated pieces that will bring harmony to every room.",
     href: "#collections",
   },
   {
-    title: "New Arrivals",
+    title: "Featured",
     description:
       "Be the first to experience the latest silhouettes fresh from our studio.",
     href: "#new-arrivals",
@@ -37,8 +37,8 @@ const SectionFacade = () => {
             Discover Our World
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            A curated glimpse into the experiences waiting for you at Roots
-            Design. Choose a destination to begin your journey.
+            A glimpse into what is waiting for you at Roots
+            Design.
           </p>
         </div>
 

@@ -29,8 +29,8 @@ const Header = ({ transparent = false }: HeaderProps) => {
   const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-sm py-4" : transparent ? "bg-transparent py-6" : "bg-white py-6"}`;
 
   const navLinks = [
-    { name: "Collections", href: "/#collections" },
-    { name: "New Arrivals", href: "/#new-arrivals" },
+    { name: "The Collection", href: "/#collections" },
+    { name: "Featured Pieces", href: "/#new-arrivals" },
     { name: "About", href: "/#about" },
     { name: "Contact", href: "/#contact" },
   ];

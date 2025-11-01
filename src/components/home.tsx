@@ -5,6 +5,7 @@ import HeroSection from "./HeroSection";
 import ProductGrid from "./ProductGrid";
 import ProductCard from "./ProductCard";
 import SectionFacade from "./SectionFacade";
+import CloudinaryImage from "./CloudinaryImage";
 
 const newArrivalProducts = [
   {
@@ -43,19 +44,19 @@ const newArrivalProducts = [
 
 const aboutHighlights = [
   {
-    title: "Crafted with Passion",
+    title: "Selected with Passion",
     description:
-      "Every fixture begins as a sketch inspired by architectural lines and the interplay of light. Our artisans translate those ideas into forms that feel both modern and enduring.",
+      "Every selected piece begins as a investigation process. Our team searches for the best pieces to translate those ideas into pieces that are both modern and enduring.",
   },
   {
     title: "Sustainable Materials",
     description:
-      "We partner with responsible suppliers and use recycled metals, FSC-certified woods, and low-impact finishes to ensure beauty never compromises the planet.",
+      "We partner with responsible suppliers and promote a circular marketplace. We prioritised pieces with metals, FSC-certified woods, and low-impact finishes to ensure beauty never compromises the planet.",
   },
   {
     title: "Design Services",
     description:
-      "From concept to installation, our team collaborates with designers and homeowners to tailor lighting plans that elevate every room's atmosphere.",
+      "From concept to reality, our team collaborates with designers to elevate every room's atmosphere.",
   },
 ];
 
@@ -83,8 +84,8 @@ const HomePage = () => {
 
         <ProductGrid
           id="collections"
-          title="Collections"
-          subtitle="Discover lighting families that pair sculptural silhouettes with purposeful illumination for every room."
+          title="The Collection"
+          subtitle="Discover our curated collection, where each piece counts. You won't regret it!"
         />
 
         <section
@@ -100,11 +101,11 @@ const HomePage = () => {
               className="mb-12 text-center"
             >
               <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
-                New Arrivals
+                Featured
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Fresh from our studio: limited-release designs that celebrate
-                materiality, proportion, and the artistry of light.
+                Fresh and featured pieces for you: treat your spaces and celebrate
+                materiality, proportion, and the artistry of design.
               </p>
             </motion.div>
 
@@ -146,7 +147,7 @@ const HomePage = () => {
                 About Roots Design
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                We create lighting that feels at once refined and soulful,
+                We select pieces that feel at once refined and soulful,
                 blending modern engineering with timeless craft.
               </p>
             </motion.div>
@@ -160,10 +161,18 @@ const HomePage = () => {
                 transition={{ duration: 0.6 }}
                 className="relative overflow-hidden rounded-3xl"
               >
-                <img
+                {/* <img
                   src="https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1200&q=80"
                   alt="Designers collaborating in a studio"
                   className="h-full w-full object-cover"
+                /> */}
+                <CloudinaryImage
+                  publicId="web_deco/storage_room_1.jpg"
+                  alt="Storage room with design items"
+                  aspect="4:5"                             // matches the wrapper on mobile
+                  sizes="(max-width:1024px) 100vw, 50vw"   // responsive hint
+                  className="w-full h-full object-cover"
+                  priority 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -172,9 +181,8 @@ const HomePage = () => {
                   </span>
                   <h3 className="mt-4 text-3xl font-light">Rooted in Craft</h3>
                   <p className="mt-3 text-sm text-white/80">
-                    What began as a small atelier in 2010 has grown into a
-                    multidisciplinary studio celebrated for its sculptural
-                    approach to light. Each collection is a dialogue between
+                    What began as a small hobby to decorate my home has grown into a
+                    multidisciplinary studio, where each piece is a dialogue between
                     heritage craftsmanship and contemporary design.
                   </p>
                   <a
@@ -219,11 +227,9 @@ const HomePage = () => {
                 ))}
 
                 <div className="rounded-3xl bg-gray-900 p-8 text-white">
-                  <h4 className="text-xl font-light">Studio Visits</h4>
+                  <h4 className="text-xl font-light">See it for yourself</h4>
                   <p className="mt-3 text-sm text-white/80">
-                    Experience our collections in person by scheduling a visit
-                    to our downtown showroom. Guided appointments offer tailored
-                    lighting plans for residential and commercial projects.
+                    Experience and discover the piece that you falled for in person by scheduling a visit.
                   </p>
                   <a
                     href="#contact"
@@ -272,7 +278,7 @@ const HomePage = () => {
               </p>
 
               <div className="space-y-6 text-sm text-gray-700">
-                <div>
+                {/* <div>
                   <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Visit
                   </h3>
@@ -281,20 +287,20 @@ const HomePage = () => {
                     Suite 210<br />
                     New York, NY 10012
                   </p>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Call
                   </h3>
                   <p className="mt-2">(212) 555-0198</p>
-                </div>
+                </div> */}
                 <div>
                   <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Email
                   </h3>
                   <p className="mt-2">hello@rootsdesign.com</p>
                 </div>
-                <div>
+                {/* <div> 
                   <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.3em]">
                     Hours
                   </h3>
@@ -303,7 +309,7 @@ const HomePage = () => {
                     <br />
                     Saturday: 11am – 4pm
                   </p>
-                </div>
+                </div> */}
               </div>
             </motion.div>
 
@@ -367,7 +373,7 @@ const HomePage = () => {
           <div>
             <h3 className="text-xl font-light mb-4">Roots Design</h3>
             <p className="text-gray-400 mb-6">
-              Elevating spaces with premium lighting solutions since 2010.
+              Elevating spaces with premium design Furniture.
             </p>
             <div className="flex space-x-4">
               <a
@@ -413,7 +419,7 @@ const HomePage = () => {
                   href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Collections
+                  The Collection
                 </a>
               </li>
               <li>
@@ -421,7 +427,7 @@ const HomePage = () => {
                   href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  New Arrivals
+                  Featured Pieces
                 </a>
               </li>
               <li>
@@ -470,14 +476,14 @@ const HomePage = () => {
                   Sustainability
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Press
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
