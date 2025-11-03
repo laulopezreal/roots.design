@@ -2,25 +2,30 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { useCart } from "./cart/CartContext";
+import CloudinaryImage, { Props as CloudinaryImageProps } from "./CloudinaryImage";
 
 interface ProductCardProps {
   id?: string;
   name?: string;
   brand?: string;
+  designer?: string;
   price?: number;
-  image?: string;
+  image?: CloudinaryImageProps;
   onQuickAdd?: () => void;
 }
 
 const ProductCard = ({
   id = "1",
   name = "Pendant Light",
+  designer = "",
   brand = "Roots Studio",
   price = 299,
-  image = "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
+  image,
   onQuickAdd,
 }: ProductCardProps) => {
   const { addItem } = useCart();
+  const productImage = image && image.publicId ? image : undefined;
+  const imageAlt = productImage?.alt?.trim() ? productImage.alt : name;
 
   const handleQuickAdd = () => {
     if (onQuickAdd) {
@@ -37,7 +42,7 @@ const ProductCard = ({
       name,
       brand,
       price,
-      image,
+      image: productImage,
     });
   };
 
@@ -49,11 +54,24 @@ const ProductCard = ({
       transition={{ duration: 0.5 }}
     >
       <div className="relative aspect-[3/4] overflow-hidden">
-        <img
+        {/* <img
           src={image}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        /> */}
+        {productImage ? (
+          <CloudinaryImage
+            publicId={productImage.publicId}
+            alt={imageAlt}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="w-full h-full bg-gray-100 transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
+
 
         {/* Overlay that appears on hover */}
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

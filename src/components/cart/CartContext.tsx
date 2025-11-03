@@ -8,11 +8,13 @@ import {
   type ReactNode,
 } from "react";
 
+import CloudinaryImage, {Props} from "../CloudinaryImage";
+
 export interface CartItem {
   id: string;
   name: string;
   price: number;
-  image?: string;
+  image?: Props;
   brand?: string;
   quantity: number;
 }

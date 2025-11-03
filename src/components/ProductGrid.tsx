@@ -2,18 +2,8 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import ProductCard from "./ProductCard";
-
-interface Product {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  image: string;
-  category: string;
-  collection?: string;
-  finish?: string;
-  tags?: string[];
-}
+import { productsList } from "../Products/productList"
+import { Product } from "../Products/productProps"
 
 interface ProductGridProps {
   products?: Product[];
@@ -23,13 +13,20 @@ interface ProductGridProps {
   className?: string;
 }
 
+type PriceRange = {
+  id: string;
+  label: string;
+  min?: number;
+  max?: number;
+};
+
 const PRICE_RANGES = [
   { id: "all", label: "All Prices" },
   { id: "under200", label: "Under $200", max: 199 },
   { id: "200to350", label: "$200 - $350", min: 200, max: 350 },
   { id: "350to500", label: "$350 - $500", min: 350, max: 500 },
   { id: "over500", label: "Over $500", min: 500 },
-] as const;
+] satisfies readonly PriceRange[];
 
 const normalizeText = (value: string) =>
   value
@@ -42,104 +39,7 @@ const normalizeText = (value: string) =>
     : "";
 
 const ProductGrid = ({
-  products = [
-    {
-      id: "1",
-      name: "Pendant Light",
-      brand: "Roots Atelier",
-      price: 249,
-      image:
-        "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
-      category: "pendant",
-      collection: "Arc",
-      finish: "Brushed Brass",
-      tags: ["statement", "suspended"],
-    },
-    {
-      id: "2",
-      name: "Table Lamp",
-      brand: "Foundry Co.",
-      price: 189,
-      image:
-        "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
-      category: "table",
-      collection: "Lumen",
-      finish: "Matte Opal",
-      tags: ["desk", "task"],
-    },
-    {
-      id: "3",
-      name: "Floor Lamp",
-      brand: "Roots Atelier",
-      price: 329,
-      image:
-        "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=800&q=80",
-      category: "floor",
-      collection: "Axis",
-      finish: "Bronzed Steel",
-      tags: ["ambient"],
-    },
-    {
-      id: "4",
-      name: "Wall Sconce",
-      brand: "Lustre House",
-      price: 159,
-      image:
-        "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80",
-      category: "wall",
-      collection: "Halo",
-      finish: "Antique Brass",
-      tags: ["accent", "pair"],
-    },
-    {
-      id: "5",
-      name: "Chandelier",
-      brand: "Lustre House",
-      price: 599,
-      image:
-        "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&q=80",
-      category: "chandelier",
-      collection: "Celeste",
-      finish: "Polished Nickel",
-      tags: ["grand", "dining"],
-    },
-    {
-      id: "6",
-      name: "Desk Lamp",
-      brand: "Foundry Co.",
-      price: 129,
-      image:
-        "https://images.unsplash.com/photo-1534105615256-13940a56ff44?w=800&q=80",
-      category: "table",
-      collection: "Lumen",
-      finish: "Soft Black",
-      tags: ["compact", "workspace"],
-    },
-    {
-      id: "7",
-      name: "Ceiling Light",
-      brand: "Maison Arc",
-      price: 279,
-      image:
-        "https://images.unsplash.com/photo-1551043077-643bc76c7583?w=800&q=80",
-      category: "ceiling",
-      collection: "Orbit",
-      finish: "Frosted Glass",
-      tags: ["flush mount"],
-    },
-    {
-      id: "8",
-      name: "Modern Pendant",
-      brand: "Maison Arc",
-      price: 349,
-      image:
-        "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=800&q=80",
-      category: "pendant",
-      collection: "Arc",
-      finish: "Matte Graphite",
-      tags: ["linear", "modern"],
-    },
-  ],
+  products = productsList,
   title = "Our Collection",
   subtitle = "Discover our curated selection of premium lighting solutions",
   id,
@@ -148,16 +48,16 @@ const ProductGrid = ({
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
-  const [selectedPriceRange, setSelectedPriceRange] = useState<string>("all");
+  const [selectedPriceRange, setSelectedPriceRange] = useState<PriceRange["id"]>("all");
 
   const categories = [
     { id: "all", name: "All Products" },
-    { id: "pendant", name: "Pendant Lights" },
-    { id: "table", name: "Table Lamps" },
-    { id: "floor", name: "Floor Lamps" },
-    { id: "wall", name: "Wall Lights" },
-    { id: "chandelier", name: "Chandeliers" },
-    { id: "ceiling", name: "Ceiling Lights" },
+    { id: "lamps", name: "Lamps" },
+    { id: "tables", name: "Tables" },
+    { id: "chairs", name: "Chairs" },
+    // { id: "wall", name: "Wall Lights" },
+    // { id: "chandelier", name: "Chandeliers" },
+    // { id: "ceiling", name: "Ceiling Lights" },
   ];
 
   const availableBrands = useMemo(() => {
@@ -176,6 +76,7 @@ const ProductGrid = ({
       const searchableContent = [
         product.name,
         product.brand,
+        product.designer,
         product.category,
         product.collection,
         product.finish,
@@ -288,7 +189,9 @@ const ProductGrid = ({
                 Price
                 <select
                   value={selectedPriceRange}
-                  onChange={(event) => setSelectedPriceRange(event.target.value)}
+                  onChange={(event) =>
+                    setSelectedPriceRange(event.target.value as PriceRange["id"])
+                  }
                   className="border border-gray-200 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                 >
                   {PRICE_RANGES.map((range) => (

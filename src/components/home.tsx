@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
@@ -6,41 +6,8 @@ import ProductGrid from "./ProductGrid";
 import ProductCard from "./ProductCard";
 import SectionFacade from "./SectionFacade";
 import CloudinaryImage from "./CloudinaryImage";
-
-const newArrivalProducts = [
-  {
-    id: "na-1",
-    name: "Opaline Sphere Pendant",
-    brand: "Roots Atelier",
-    price: 325,
-    image:
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
-  },
-  {
-    id: "na-2",
-    name: "Sculpted Marble Sconce",
-    brand: "Lustre House",
-    price: 285,
-    image:
-      "https://images.unsplash.com/photo-1505692069463-26a9ebc09a61?w=800&q=80",
-  },
-  {
-    id: "na-3",
-    name: "Velvet Drum Table Lamp",
-    brand: "Foundry Co.",
-    price: 210,
-    image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
-  },
-  {
-    id: "na-4",
-    name: "Linear Cascade Chandelier",
-    brand: "Maison Arc",
-    price: 640,
-    image:
-      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=800&q=80",
-  },
-];
+import { productsList } from "../Products/productList";
+import { getFeaturedProducts } from "../Products/productSelectors";
 
 const aboutHighlights = [
   {
@@ -67,6 +34,8 @@ const HomePage = () => {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  const featuredProducts = useMemo(() => getFeaturedProducts(productsList, 4), []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -110,7 +79,7 @@ const HomePage = () => {
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {newArrivalProducts.map((product, index) => (
+              {featuredProducts.map((product, index) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -152,59 +121,36 @@ const HomePage = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr,1fr] gap-10 lg:gap-14 items-start">
               <motion.article
                 id="our-story"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8 }}
                 className="relative overflow-hidden rounded-3xl"
               >
-                {/* <img
-                  src="https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1200&q=80"
-                  alt="Designers collaborating in a studio"
-                  className="h-full w-full object-cover"
-                /> */}
-                <CloudinaryImage
-                  publicId="web_deco/storage_room_1.jpg"
-                  alt="Storage room with design items"
-                  aspect="4:5"                             // matches the wrapper on mobile
-                  sizes="(max-width:1024px) 100vw, 50vw"   // responsive hint
-                  className="w-full h-full object-cover"
-                  priority 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <span className="text-xs uppercase tracking-[0.4em] text-white/70">
-                    Our Story
-                  </span>
-                  <h3 className="mt-4 text-3xl font-light">Rooted in Craft</h3>
-                  <p className="mt-3 text-sm text-white/80">
-                    What began as a small hobby to decorate my home has grown into a
-                    multidisciplinary studio, where each piece is a dialogue between
-                    heritage craftsmanship and contemporary design.
-                  </p>
-                  <a
-                    href="#contact"
-                    className="mt-6 inline-flex items-center text-sm font-medium text-white transition-colors hover:text-gray-200"
-                  >
-                    Connect with our team
-                    <svg
-                      className="ml-2 h-4 w-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 12H19M19 12L13 6M19 12L13 18"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </a>
+                {/* Mobile: tall card; Desktop: cinematic height */}
+                <div className="relative overflow-hidden rounded-3xl aspect-[4/5] lg:aspect-auto lg:h-[80vh]">
+                  <CloudinaryImage
+                    publicId="storage_room_1.jpg"
+                    alt="Storage room with design items"
+                    widths={[800,1200,1600,2000,3000]}
+                    sizes="(max-width:1024px) 100vw, 66vw"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                    <span className="text-xs uppercase tracking-[0.4em] text-white/70">Our Story</span>
+                    <h3 className="mt-4 text-3xl font-light">Rooted in Craft</h3>
+                    <p className="mt-3 text-sm text-white/80 max-w-lg">
+                      What began as a small hobby to decorate my home has grown into a multidisciplinary studio…
+                    </p>
+                    <a href="#contact" className="mt-6 inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
+                      Connect with our team →
+                    </a>
+                  </div>
                 </div>
               </motion.article>
 
@@ -212,7 +158,7 @@ const HomePage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.9, delay: 0.5 }}
                 className="space-y-8"
               >
                 {aboutHighlights.map((highlight) => (

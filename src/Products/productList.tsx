@@ -1,0 +1,107 @@
+import type { Product } from "./productProps";
+import { pendantLightImage, dunasArmchairImage } from "./productImages";
+
+export const productsList: Product[] = [
+  {
+    id: "1",
+    name: "ANC66 Side Table",
+    brand: "Heilig Objects",
+    designer: "",
+    price: 249,
+    image: pendantLightImage,
+    category: "side_table",
+    collection: "The Collection",
+    finish: "",
+    tags: ["heilig objects", "design"],
+    featured: true,
+    featuredRank: 1,
+  },
+  {
+    id: "2",
+    name: "Armchair - Dunas XL",
+    brand: "InClass",
+    designer: "",
+    price: 189,
+    image: dunasArmchairImage,
+    category: "chair",
+    collection: "The Collection",
+    finish: "",
+    tags: ["chair", "armchair"],
+    featured: true,
+    featuredRank: 2,
+  },
+// {
+//     id: "3",
+//     name: "Floor Lamp",
+//     brand: "Roots Atelier",
+//     designer: "",
+
+//     price: 329,
+//     image:
+//     "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=800&q=80",
+//     category: "floor",
+//     collection: "Axis",
+//     finish: "Bronzed Steel",
+//     tags: ["ambient"],
+// },
+// {
+//     id: "4",
+//     name: "Wall Sconce",
+//     brand: "Lustre House",
+//     price: 159,
+//     image:
+//     "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=80",
+//     category: "wall",
+//     collection: "Halo",
+//     finish: "Antique Brass",
+//     tags: ["accent", "pair"],
+// },
+// {
+//     id: "5",
+//     name: "Chandelier",
+//     brand: "Lustre House",
+//     price: 599,
+//     image:
+//     "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&q=80",
+//     category: "chandelier",
+//     collection: "Celeste",
+//     finish: "Polished Nickel",
+//     tags: ["grand", "dining"],
+// },
+// {
+//     id: "6",
+//     name: "Desk Lamp",
+//     brand: "Foundry Co.",
+//     price: 129,
+//     image:
+//     "https://images.unsplash.com/photo-1534105615256-13940a56ff44?w=800&q=80",
+//     category: "table",
+//     collection: "Lumen",
+//     finish: "Soft Black",
+//     tags: ["compact", "workspace"],
+// },
+// {
+//     id: "7",
+//     name: "Ceiling Light",
+//     brand: "Maison Arc",
+//     price: 279,
+//     image:
+//     "https://images.unsplash.com/photo-1551043077-643bc76c7583?w=800&q=80",
+//     category: "ceiling",
+//     collection: "Orbit",
+//     finish: "Frosted Glass",
+//     tags: ["flush mount"],
+// },
+// {
+//     id: "8",
+//     name: "Modern Pendant",
+//     brand: "Maison Arc",
+//     price: 349,
+//     image:
+//     "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=800&q=80",
+//     category: "pendant",
+//     collection: "Arc",
+//     finish: "Matte Graphite",
+//     tags: ["linear", "modern"],
+// },
+]

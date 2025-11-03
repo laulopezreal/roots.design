@@ -4,6 +4,7 @@ import Header from "./Header";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useCart } from "./cart/CartContext";
+import CloudinaryImage from "./CloudinaryImage";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -115,11 +116,15 @@ const CartPage = () => {
                     className="flex flex-col md:flex-row gap-6 border-b border-gray-100 pb-6 last:border-none"
                   >
                     {item.image && (
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full md:w-40 h-40 object-cover rounded-lg"
+                      <CloudinaryImage
+                        publicId=""
+                        alt=""
                       />
+                      // <img
+                      //   src={item.image}
+                      //   alt={item.name}
+                      //   className="w-full md:w-40 h-40 object-cover rounded-lg"
+                      // />
                     )}
                     <div className="flex-1 space-y-4">
                       <header className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
