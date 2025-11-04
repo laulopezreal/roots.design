@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { useCart } from "./cart/CartContext";
 import CloudinaryImage, { Props as CloudinaryImageProps } from "./CloudinaryImage";
+import { CART_ENABLED } from "../config/featureFlags";
 
 interface ProductCardProps {
   id?: string;
@@ -24,10 +25,15 @@ const ProductCard = ({
   onQuickAdd,
 }: ProductCardProps) => {
   const { addItem } = useCart();
+  const isCartEnabled = CART_ENABLED;
   const productImage = image && image.publicId ? image : undefined;
   const imageAlt = productImage?.alt?.trim() ? productImage.alt : name;
 
   const handleQuickAdd = () => {
+    if (!isCartEnabled) {
+      return;
+    }
+
     if (onQuickAdd) {
       onQuickAdd();
       return;
@@ -77,15 +83,17 @@ const ProductCard = ({
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Quick add button that appears on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
-          <Button
-            onClick={handleQuickAdd}
-            variant="outline"
-            className="w-full bg-white hover:bg-gray-100 border-gray-200 text-gray-900 text-sm font-light"
-          >
-            Quick Add
-          </Button>
-        </div>
+        {isCartEnabled && (
+          <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
+            <Button
+              onClick={handleQuickAdd}
+              variant="outline"
+              className="w-full bg-white hover:bg-gray-100 border-gray-200 text-gray-900 text-sm font-light"
+            >
+              Quick Add
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Product info */}
