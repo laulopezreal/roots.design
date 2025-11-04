@@ -5,7 +5,6 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useCart } from "./cart/CartContext";
 import CloudinaryImage from "./CloudinaryImage";
-import { CART_ENABLED } from "../config/featureFlags";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -20,9 +19,8 @@ const PAYMENT_DELAY_MS = 1200;
 
 const CartPage = () => {
   const cart = useCart();
-  const isCartEnabled = CART_ENABLED;
 
-  if (!isCartEnabled) {
+  if (!cart.enabled) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -138,16 +136,17 @@ const CartPage = () => {
                     key={item.id}
                     className="flex flex-col md:flex-row gap-6 border-b border-gray-100 pb-6 last:border-none"
                   >
-                    {item.image && (
+                    {item.image ? (
                       <CloudinaryImage
-                        publicId=""
-                        alt=""
+                        {...item.image}
+                        alt={item.image.alt || item.name}
+                        className="w-full md:w-40 h-40 object-cover rounded-lg"
                       />
-                      // <img
-                      //   src={item.image}
-                      //   alt={item.name}
-                      //   className="w-full md:w-40 h-40 object-cover rounded-lg"
-                      // />
+                    ) : (
+                      <div
+                        aria-hidden="true"
+                        className="w-full md:w-40 h-40 rounded-lg bg-gray-100"
+                      />
                     )}
                     <div className="flex-1 space-y-4">
                       <header className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">

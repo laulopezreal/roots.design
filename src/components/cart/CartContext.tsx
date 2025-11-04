@@ -8,14 +8,14 @@ import {
   type ReactNode,
 } from "react";
 
-import CloudinaryImage, {Props} from "../CloudinaryImage";
+import type { Props as CloudinaryImageProps } from "../CloudinaryImage";
 import { CART_ENABLED } from "../../config/featureFlags";
 
 export interface CartItem {
   id: string;
   name: string;
   price: number;
-  image?: Props;
+  image?: CloudinaryImageProps;
   brand?: string;
   quantity: number;
 }
@@ -35,6 +35,7 @@ export interface CartContextValue {
   items: CartItem[];
   totalItems: number;
   subtotal: number;
+  enabled: boolean;
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
@@ -52,6 +53,7 @@ const DISABLED_CART_CONTEXT: CartContextValue = {
   items: [],
   totalItems: 0,
   subtotal: 0,
+  enabled: false,
   addItem: () => undefined,
   removeItem: () => undefined,
   updateQuantity: () => undefined,
@@ -219,6 +221,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       items: state.items,
       totalItems,
       subtotal,
+      enabled: true,
       addItem,
       removeItem,
       updateQuantity,
@@ -237,4 +240,8 @@ export function useCart(): CartContextValue {
   }
 
   return context;
+}
+
+export function useCartEnabled(): boolean {
+  return useCart().enabled;
 }

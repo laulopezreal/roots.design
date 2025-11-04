@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "./cart/CartContext";
-import { CART_ENABLED } from "../config/featureFlags";
 
 interface HeaderProps {
   transparent?: boolean;
@@ -12,8 +11,7 @@ interface HeaderProps {
 const Header = ({ transparent = false }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { totalItems } = useCart();
-  const isCartEnabled = CART_ENABLED;
+  const { totalItems, enabled: cartEnabled } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +78,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           >
             <Search size={20} />
           </button>
-          {isCartEnabled && (
+          {cartEnabled && (
             <Link
               to="/cart"
               className="relative hover:text-gray-500 transition-colors"
