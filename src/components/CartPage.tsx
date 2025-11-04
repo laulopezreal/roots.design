@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useCart } from "./cart/CartContext";
 import CloudinaryImage from "./CloudinaryImage";
+import { CART_ENABLED } from "../config/featureFlags";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -18,7 +19,29 @@ function formatCurrency(value: number) {
 const PAYMENT_DELAY_MS = 1200;
 
 const CartPage = () => {
-  const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
+  const cart = useCart();
+  const isCartEnabled = CART_ENABLED;
+
+  if (!isCartEnabled) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <main className="pt-32 pb-16 px-4 md:px-8">
+          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-10 text-center space-y-4">
+            <h1 className="text-3xl font-light text-gray-900">Cart Unavailable</h1>
+            <p className="text-sm text-gray-500">
+              The shopping cart and checkout are currently disabled. Please check back soon or continue exploring the collection.
+            </p>
+            <Button asChild>
+              <Link to="/">Browse The Collection</Link>
+            </Button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const { items, subtotal, updateQuantity, removeItem, clearCart } = cart;
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [formValues, setFormValues] = useState({

@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import CloudinaryImage, {Props} from "../CloudinaryImage";
+import { CART_ENABLED } from "../../config/featureFlags";
 
 export interface CartItem {
   id: string;
@@ -47,6 +48,15 @@ const initialState: CartState = {
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const STORAGE_KEY = "roots.design.cart";
+const DISABLED_CART_CONTEXT: CartContextValue = {
+  items: [],
+  totalItems: 0,
+  subtotal: 0,
+  addItem: () => undefined,
+  removeItem: () => undefined,
+  updateQuantity: () => undefined,
+  clearCart: () => undefined,
+};
 
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
@@ -137,6 +147,10 @@ function deserializeCartItems(value: unknown): CartItem[] {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  if (!CART_ENABLED) {
+    return <CartContext.Provider value={DISABLED_CART_CONTEXT}>{children}</CartContext.Provider>;
+  }
+
   const [state, dispatch] = useReducer(
     cartReducer,
     initialState,
