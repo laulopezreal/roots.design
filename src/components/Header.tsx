@@ -49,7 +49,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
 
         {/* Logo */}
         <div className="flex-1 md:flex-none flex justify-start md:justify-center">
-          <Link to="/" className="text-2xl font-light tracking-wider">
+          <Link to="/" className="text-3xl font-medium tracking-[0.2em]">
             Roots Design
           </Link>
         </div>
@@ -61,7 +61,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
               <li key={link.name}>
                 <a
                   href={link.href}
-                  className="text-sm tracking-wide hover:text-gray-500 transition-colors"
+                  className="text-base font-display tracking-wide hover:text-gray-500 transition-colors"
                 >
                   {link.name}
                 </a>
@@ -109,7 +109,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-sm tracking-wide block py-2"
+                      className="text-base font-display tracking-wide block py-2"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.name}
