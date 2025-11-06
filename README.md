@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# Roots Design Storefront
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Roots Design is a React + TypeScript single-page experience powered by Vite. It showcases product collections, supports a lightweight shopping cart, and integrates responsive Cloudinary media.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 18+
+- npm 9+
 
-## Expanding the ESLint configuration
+Install dependencies once:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Available Scripts
+
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Launch the Vite dev server with hot module replacement. |
+| `npm run build` | Type-check (`tsc`) then create a production build. |
+| `npm run preview` | Serve the built assets locally for QA. |
+| `npm run lint` | Run ESLint across the codebase (`ts`, `tsx`). |
+
+## Cart Feature Flag
+
+Cart behaviour is controlled by the `VITE_CART_ENABLED` environment variable (defaults to `true` when unset). Place overrides in a `.env` file at the project root:
+
+```env
+# Disable cart, checkout, and quick-add UI
+VITE_CART_ENABLED=false
+```
+
+Truthiness rules:
+
+- Values like `false`, `0`, `off`, or `disabled` explicitly turn the cart off.
+- Any other non-empty string keeps the cart on.
+
+When disabled, `CartProvider` exposes a no-op context and the UI swaps to informational messaging (e.g., the `/cart` route renders “Cart Unavailable” and quick-add buttons disappear). Components should consume `useCart()` or `useCartEnabled()`—avoid importing the flag directly so future runtime toggles only touch the provider.
+
+## Cloudinary Media
+
+Product imagery uses Cloudinary public IDs. Ensure `VITE_CLOUDINARY_CLOUD` is set; otherwise local fallbacks and warnings appear. Images saved with cart items include their Cloudinary props, allowing the cart page to render thumbnails without re-querying product data.
+
+## Project Structure
+
+- `src/components` — UI modules (cart, layout, product cards, etc.).
+- `src/Products` — product data and Cloudinary image helpers.
+- `src/config/featureFlags.ts` — centralised feature flag resolution.
+- `src/main.tsx` — app bootstrap and provider wiring.
+
+## Development Notes
+
+- The cart state persists in `localStorage` under `roots.design.cart`.
+- Cloudinary helpers automatically generate responsive URLs and blur-up placeholders.
+- ESLint is configured via `eslint.config.js` and runs with the custom TypeScript parser included in the repo—no additional setup required.
