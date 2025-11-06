@@ -139,7 +139,7 @@ const HeroSection = ({
           transition={{ duration: 0.8, delay: 0.5 }}
           className="max-w-2xl"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-light text-gray-900 mb-6">
             {headingContent}
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-10">{subtitle}</p>
