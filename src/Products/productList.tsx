@@ -1,5 +1,5 @@
 import type { Product } from "./productProps";
-import { pendantLightImage, dunasArmchairImage } from "./productImages";
+import { table1Image, dunasArmchairImage } from "./productImages";
 
 export const productsList: Product[] = [
   {
@@ -8,7 +8,7 @@ export const productsList: Product[] = [
     brand: "Heilig Objects",
     designer: "",
     price: 249,
-    image: pendantLightImage,
+    image: table1Image,
     category: "side_table",
     collection: "The Collection",
     finish: "",
@@ -18,6 +18,20 @@ export const productsList: Product[] = [
   },
   {
     id: "2",
+    name: "ANC66 Side Table",
+    brand: "Heilig Objects",
+    designer: "",
+    price: 249,
+    image: table1Image,
+    category: "side_table",
+    collection: "The Collection",
+    finish: "",
+    tags: ["heilig objects", "design"],
+    featured: true,
+    featuredRank: 1,
+  },
+  {
+    id: "3",
     name: "Armchair - Dunas XL",
     brand: "InClass",
     designer: "",

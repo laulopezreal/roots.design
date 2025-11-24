@@ -23,9 +23,9 @@ function createProductImage(
   };
 }
 
-export const pendantLightImage = createProductImage(
+export const table1Image = createProductImage(
   "2507-1_le16yg.jpg",
-  "Brass pendant lamp suspended above a marble table",
+  "Brass side table with a marble top",
 );
 
 export const dunasArmchairImage = createProductImage(
@@ -34,7 +34,7 @@ export const dunasArmchairImage = createProductImage(
 );
 
 export const productImages = {
-  pendantLight: pendantLightImage,
+  table1: table1Image,
   dunasArmchair: dunasArmchairImage,
 };
 
