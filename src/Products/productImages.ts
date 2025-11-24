@@ -1,6 +1,6 @@
 import type { Props as CloudinaryImageProps } from "../components/CloudinaryImage";
 
-const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD ?? "dez0k7k6x";
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD
 const DEFAULT_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px";
 const DEFAULT_ASPECT = "4:5";
 
