@@ -83,8 +83,15 @@ const HomePage = () => {
                   Loading featured products...
                 </div>
               ) : featuredProducts.length === 0 ? (
-                <div className="col-span-full text-center py-12 text-gray-500">
-                  No featured products available
+                <div className="col-span-full text-center py-12">
+                  <div className="max-w-md mx-auto bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <p className="text-sm text-blue-900 mb-2 font-medium">
+                      🔧 Database Not Configured
+                    </p>
+                    <p className="text-xs text-blue-700">
+                      Products will appear here once Supabase is set up. See IMPLEMENTATION.md for setup instructions.
+                    </p>
+                  </div>
                 </div>
               ) : (
                 featuredProducts.map((product, index) => {
