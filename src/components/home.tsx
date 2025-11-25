@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
@@ -6,8 +6,7 @@ import ProductGrid from "./ProductGrid";
 import ProductCard from "./ProductCard";
 import SectionFacade from "./SectionFacade";
 import CloudinaryImage from "./CloudinaryImage";
-import { productsList } from "../Products/productList";
-import { getFeaturedProducts } from "../Products/productSelectors";
+import { useFeaturedProducts } from "../hooks/useFeaturedProducts";
 
 const aboutHighlights = [
   {
@@ -35,7 +34,7 @@ const HomePage = () => {
     }
   };
 
-  const featuredProducts = useMemo(() => getFeaturedProducts(productsList, 4), []);
+  const { products: featuredProducts, loading: featuredLoading } = useFeaturedProducts(4);
 
   return (
     <div className="min-h-screen bg-white">
@@ -79,23 +78,41 @@ const HomePage = () => {
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {featuredProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                >
-                  <ProductCard
-                    id={product.id}
-                    name={product.name}
-                    brand={product.brand}
-                    price={product.price}
-                    image={product.image}
-                  />
-                </motion.div>
-              ))}
+              {featuredLoading ? (
+                <div className="col-span-full text-center py-12 text-gray-500">
+                  Loading featured products...
+                </div>
+              ) : featuredProducts.length === 0 ? (
+                <div className="col-span-full text-center py-12 text-gray-500">
+                  No featured products available
+                </div>
+              ) : (
+                featuredProducts.map((product, index) => {
+                  const primaryImage = product.images?.[0];
+                  return (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                    >
+                      <ProductCard
+                        id={product.id}
+                        name={product.name}
+                        brand={product.brand || undefined}
+                        price={product.price}
+                        image={primaryImage ? {
+                          publicId: primaryImage.cloudinary_public_id,
+                          alt: primaryImage.alt_text || product.name,
+                          widths: primaryImage.widths,
+                          sizes: primaryImage.sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px',
+                        } : undefined}
+                      />
+                    </motion.div>
+                  );
+                })
+              )}
             </div>
           </div>
         </section>
