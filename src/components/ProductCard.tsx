@@ -102,7 +102,7 @@ const ProductCard = ({
       )}
 
       {/* Product info */}
-      <Link to={`/product/${id}`} className="block pt-4 pb-2 space-y-1 text-center hover:opacity-80 transition-opacity">
+      <div className="pt-4 pb-2 space-y-1 text-center">
         {brand && (
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
             {brand}
@@ -110,7 +110,7 @@ const ProductCard = ({
         )}
         <h3 className="text-sm font-light text-gray-900">{name}</h3>
         <p className="text-sm font-light text-gray-700">${price}</p>
-      </Link>
+      </div>
     </motion.div>
   );
 };
