@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import CloudinaryImage from './CloudinaryImage';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -18,6 +18,7 @@ interface ProductImageGalleryProps {
 }
 
 export default function ProductImageGallery({ images, productName }: ProductImageGalleryProps) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
   useEffect(() => {

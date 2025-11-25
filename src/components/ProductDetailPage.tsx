@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from './Header';
@@ -59,8 +59,14 @@ export default function ProductDetailPage() {
     );
 
     setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
   };
+
+  useEffect(() => {
+    if (addedToCart) {
+      const timer = setTimeout(() => setAddedToCart(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [addedToCart]);
 
   if (loading) {
     return (
