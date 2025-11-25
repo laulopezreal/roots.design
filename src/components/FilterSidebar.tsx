@@ -6,6 +6,8 @@ import { Button } from './ui/button';
 import type { ProductFilters } from '../hooks/useProducts';
 import { useProducts } from '../hooks/useProducts';
 
+const MAX_PRICE = 1000;
+
 interface FilterSidebarProps {
   filters: ProductFilters;
   onFilterChange: (filters: Partial<ProductFilters>) => void;
@@ -22,11 +24,11 @@ export default function FilterSidebar({
 
   const [priceRange, setPriceRange] = useState<[number, number]>([
     filters.minPrice || 0,
-    filters.maxPrice || 1000,
+    filters.maxPrice || MAX_PRICE,
   ]);
 
   useEffect(() => {
-    setPriceRange([filters.minPrice || 0, filters.maxPrice || 1000]);
+    setPriceRange([filters.minPrice || 0, filters.maxPrice || MAX_PRICE]);
   }, [filters.minPrice, filters.maxPrice]);
 
   const categories = Array.from(
@@ -166,7 +168,7 @@ export default function FilterSidebar({
         <div className="space-y-4">
           <Slider
             min={0}
-            max={1000}
+            max={MAX_PRICE}
             step={10}
             value={priceRange}
             onValueChange={handlePriceChange}
