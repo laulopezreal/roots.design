@@ -19,6 +19,12 @@ export function useProduct(id: string | undefined) {
         setLoading(true);
         setError(null);
 
+        if (!supabase) {
+          setProduct(null);
+          setLoading(false);
+          return;
+        }
+
         const { data, error: queryError } = await supabase
           .from('products')
           .select('*, images:product_images(*)')

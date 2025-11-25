@@ -36,6 +36,12 @@ export function useProducts(filters?: ProductFilters, sort?: ProductSort) {
         setLoading(true);
         setError(null);
 
+        if (!supabase) {
+          setProducts([]);
+          setLoading(false);
+          return;
+        }
+
         let query = supabase
           .from('products')
           .select('*, images:product_images(*)')
