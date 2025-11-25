@@ -50,7 +50,7 @@ export default function FilterSidebar({
   const handlePriceCommit = () => {
     onFilterChange({
       minPrice: priceRange[0] > 0 ? priceRange[0] : undefined,
-      maxPrice: priceRange[1] < MAX_PRICE ? priceRange[1] : undefined,
+      maxPrice: priceRange[1] < 1000 ? priceRange[1] : undefined,
     });
   };
 
