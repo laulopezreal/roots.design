@@ -2,11 +2,9 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import ProductCard from "./ProductCard";
-import { productsList } from "../Products/productList"
-import { Product } from "../Products/productProps"
+import { useProducts, Product } from "../hooks/useProducts";
 
 interface ProductGridProps {
-  products?: Product[];
   title?: string;
   subtitle?: string;
   id?: string;
@@ -39,12 +37,13 @@ const normalizeText = (value: string) =>
     : "";
 
 const ProductGrid = ({
-  products = productsList,
   title = "Our Collection",
   subtitle = "Discover our curated selection of premium lighting solutions",
   id,
   className = "",
 }: ProductGridProps) => {
+  // Fetch products from Supabase
+  const { products, loading: productsLoading } = useProducts();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
@@ -238,28 +237,44 @@ const ProductGrid = ({
           )}
         </div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              brand={product.brand}
-              price={product.price}
-              image={product.image}
-            />
-          ))}
-        </motion.div>
-
-        {filteredProducts.length === 0 && (
+        {productsLoading ? (
           <div className="text-center py-16">
-            <p className="text-gray-500">No products match those filters just yet.</p>
+            <p className="text-gray-500">Loading products...</p>
           </div>
+        ) : (
+          <>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {filteredProducts.map((product) => {
+                const primaryImage = product.images?.[0];
+                return (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    name={product.name}
+                    brand={product.brand || undefined}
+                    price={product.price}
+                    image={primaryImage ? {
+                      publicId: primaryImage.cloudinary_public_id,
+                      alt: primaryImage.alt_text || product.name,
+                      widths: primaryImage.widths,
+                      sizes: primaryImage.sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px',
+                    } : undefined}
+                  />
+                );
+              })}
+            </motion.div>
+
+            {filteredProducts.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-gray-500">No products match those filters just yet.</p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

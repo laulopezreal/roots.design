@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { useCart } from "./cart/CartContext";
@@ -57,7 +58,8 @@ const ProductCard = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <Link to={`/product/${id}`} className="block">
+        <div className="relative aspect-[3/4] overflow-hidden">
         {/* <img
           src={image}
           alt={name}
@@ -77,25 +79,30 @@ const ProductCard = ({
         )}
 
 
-        {/* Overlay that appears on hover */}
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Overlay that appears on hover */}
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-        {/* Quick add button that appears on hover */}
-        {cartEnabled && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
-            <Button
-              onClick={handleQuickAdd}
-              variant="outline"
-              className="w-full bg-white hover:bg-gray-100 border-gray-200 text-gray-900 text-sm font-light"
-            >
-              Quick Add
-            </Button>
-          </div>
-        )}
-      </div>
+        </div>
+      </Link>
+
+      {/* Quick add button that appears on hover */}
+      {cartEnabled && (
+        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-10">
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              handleQuickAdd();
+            }}
+            variant="outline"
+            className="w-full bg-white hover:bg-gray-100 border-gray-200 text-gray-900 text-sm font-light"
+          >
+            Quick Add
+          </Button>
+        </div>
+      )}
 
       {/* Product info */}
-      <div className="pt-4 pb-2 space-y-1 text-center">
+      <Link to={`/product/${id}`} className="block pt-4 pb-2 space-y-1 text-center hover:opacity-80 transition-opacity">
         {brand && (
           <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
             {brand}
@@ -103,7 +110,7 @@ const ProductCard = ({
         )}
         <h3 className="text-sm font-light text-gray-900">{name}</h3>
         <p className="text-sm font-light text-gray-700">${price}</p>
-      </div>
+      </Link>
     </motion.div>
   );
 };
