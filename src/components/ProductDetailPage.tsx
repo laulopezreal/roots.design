@@ -26,7 +26,7 @@ export default function ProductDetailPage() {
   const handleQuantityChange = (value: string) => {
     const parsed = parseInt(value, 10);
     if (!isNaN(parsed) && parsed > 0) {
-      setQuantity(Math.min(parsed, product?.inventory_count || 99));
+      setQuantity(Math.min(parsed, product?.inventory_count || Infinity));
     }
   };
 
