@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/:type/:value" element={<CollectionPage />} />
+          <Route path="/collections/:type/:value" element={<CollectionPage />} />
         </Routes>
         {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
       </>
