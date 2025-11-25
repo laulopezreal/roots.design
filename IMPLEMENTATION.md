@@ -108,7 +108,7 @@ You have two options:
 **Option 1: Using Supabase CLI** (Recommended)
 ```bash
 # Install Supabase CLI
-npm install -g supabase
+npm install supabase --save-dev
 
 # Login to Supabase
 supabase login
