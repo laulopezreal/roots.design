@@ -18,23 +18,23 @@ interface ProductImageGalleryProps {
 }
 
 export default function ProductImageGallery({ images, productName }: ProductImageGalleryProps) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on('select', onSelect);
+    return () => { emblaApi.off('select', onSelect); };
+  }, [emblaApi]);
+
   const scrollPrev = () => {
-    if (emblaApi) {
-      emblaApi.scrollPrev();
-      const newIndex = Math.max(0, selectedIndex - 1);
-      setSelectedIndex(newIndex);
-    }
+    emblaApi?.scrollPrev();
   };
 
   const scrollNext = () => {
-    if (emblaApi) {
-      emblaApi.scrollNext();
-      const newIndex = Math.min(images.length - 1, selectedIndex + 1);
-      setSelectedIndex(newIndex);
-    }
+    emblaApi?.scrollNext();
   };
 
   if (images.length === 0) {
