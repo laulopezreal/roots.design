@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
   };
 
   const incrementQuantity = () => {
-    setQuantity((prev) => Math.min(prev + 1, product?.inventory_count || 99));
+    setQuantity((prev) => Math.min(prev + 1, product?.inventory_count || Infinity));
   };
 
   const decrementQuantity = () => {
