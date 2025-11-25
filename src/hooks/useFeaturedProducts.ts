@@ -13,6 +13,12 @@ export function useFeaturedProducts(limit: number = 4) {
         setLoading(true);
         setError(null);
 
+        if (!supabase) {
+          setProducts([]);
+          setLoading(false);
+          return;
+        }
+
         const { data, error: queryError } = await supabase
           .from('products')
           .select('*, images:product_images(*)')
