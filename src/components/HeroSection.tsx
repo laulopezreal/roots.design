@@ -159,7 +159,7 @@ const HeroSection = ({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.9 }}
-          className="relative w-full md:w-7/12 flex justify-center md:justify-end mt-10 md:mt-0"
+          className="relative w-full md:w-6/12 flex justify-center md:justify-end mt-10 md:mt-0"
         >
           <div className="w-full">
             <img
