@@ -132,14 +132,15 @@ const HeroSection = ({
 
   return (
     <section className="relative w-full h-[800px] bg-white overflow-hidden">
-      <div className="h-full flex flex-col justify-center px-6 md:px-16 lg:px-24">
+      <div className="h-full max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20 px-19 md:px-14 lg:px-10">
+        {/* Text left */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-2xl"
+          className="w-full md:w-6/12 max-w-2xl"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-light text-gray-900 mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-light text-gray-900 mb-6">
             {headingContent}
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-10">{subtitle}</p>
@@ -151,6 +152,23 @@ const HeroSection = ({
           >
             {ctaText}
           </Button>
+        </motion.div>
+
+        {/* Image right */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.9 }}
+          className="relative w-full md:w-7/12 flex justify-center md:justify-end mt-10 md:mt-0"
+        >
+          <div className="w-full">
+            <img
+              src="/images/rootszug.png"
+              alt="Sculptural floor lamp on a terrace overlooking a lake at sunset"
+              className="w-full h-auto rounded-3xl shadow-xl shadow-gray-900/10"
+              loading="eager"
+            />
+          </div>
         </motion.div>
       </div>
     </section>
