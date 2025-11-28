@@ -132,7 +132,7 @@ const HeroSection = ({
 
   return (
     <section className="relative w-full h-[800px] bg-white overflow-hidden">
-      <div className="h-full max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20 px-19 md:px-14 lg:px-10">
+      <div className="h-full max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20 px-16 md:px-14 lg:px-10">
         {/* Text left */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
