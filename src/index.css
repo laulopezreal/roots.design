@@ -146,6 +146,12 @@
     @apply border-border;
   }
 
+  button,
+  a,
+  [role="button"] {
+    @apply cursor-pointer;
+  }
+
   body {
     @apply bg-background text-foreground font-sans;
     -webkit-font-smoothing: antialiased;
