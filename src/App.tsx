@@ -2,12 +2,14 @@ import { Suspense } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import CartPage from "./components/CartPage";
+import CursorGradient from "./components/CursorGradient";
 import routes from "tempo-routes";
 
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <>
+        <CursorGradient />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
