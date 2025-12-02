@@ -116,7 +116,7 @@ const HeroSection = ({
     >
       <span className="whitespace-nowrap">{TYPEWRITER_BASE_TITLE}&nbsp;</span>
       <span className="inline-flex items-baseline">
-        <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent pb-2 inline-block" style={{ paddingBottom: '0.35em' }}>
+        <span className="text-gradient-luxury inline-block" style={{ paddingBottom: '0.35em' }}>
           {displayedWord}
         </span>
         <span
