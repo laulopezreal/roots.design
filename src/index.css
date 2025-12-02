@@ -68,6 +68,15 @@
   font-display: swap;
 }
 
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -139,5 +148,43 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: relative;
+    min-height: 100vh;
+    /* Multi-layer blended gradient background */
+    background:
+      radial-gradient(ellipse 800px 600px at 80% 20%, rgba(234, 88, 12, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 700px 700px at 20% 80%, rgba(244, 114, 182, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse 900px 500px at 50% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 60%),
+      linear-gradient(135deg, #FDF8F3 0%, #F5EFE7 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+
+  /* Premium text gradients */
+  .text-gradient-luxury {
+    @apply bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-warm {
+    @apply bg-gradient-to-r from-amber-900 via-stone-800 to-gray-900 bg-clip-text text-transparent;
+  }
+
+  /* Refined shadows */
+  .shadow-luxury {
+    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Smooth transitions */
+  .transition-luxury {
+    @apply transition-all duration-700 ease-out;
   }
 }
