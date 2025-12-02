@@ -176,7 +176,7 @@ const HeroSection = ({
             {/* Decorative frame effect - warm monochromatic with rich accents */}
             <div className="absolute -inset-4 bg-gradient-to-br from-orange-200/40 via-amber-100/35 to-rose-100/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-gray-900/10 transition-all duration-700 group-hover:shadow-3xl group-hover:shadow-gray-900/20">
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-gray-900/10 transition-luxury group-hover:shadow-3xl group-hover:shadow-gray-900/20">
               <img
                 src="/images/hero_warm_chair.png"
                 alt="Contemporary sculptural armchair in terracotta leather"
