@@ -26,11 +26,12 @@ const Header = ({ transparent = false }: HeaderProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const glassEffectClasses = "bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60";
   const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-      ? "bg-white/80 backdrop-blur-md shadow-sm py-4 supports-[backdrop-filter]:bg-white/60"
+      ? `${glassEffectClasses} shadow-sm py-4`
       : transparent
         ? "bg-transparent py-6"
-        : "bg-white/80 backdrop-blur-md py-6 supports-[backdrop-filter]:bg-white/60"
+        : `${glassEffectClasses} py-6`
     }`;
 
   const navLinks = [
