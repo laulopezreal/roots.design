@@ -4,12 +4,14 @@ import Home from "./components/home";
 import CartPage from "./components/CartPage";
 import ProductDetailPage from "./components/ProductDetailPage";
 import CollectionPage from "./pages/CollectionPage";
+import CursorGradient from "./components/CursorGradient";
 import routes from "tempo-routes";
 
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <>
+        <CursorGradient />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
