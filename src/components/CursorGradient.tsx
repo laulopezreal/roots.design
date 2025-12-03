@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
 
 const CURSOR_SIZE = 300;
@@ -15,12 +15,20 @@ export default function CursorGradient() {
     const [isVisible, setIsVisible] = useState(false);
     const [hoveredRect, setHoveredRect] = useState<DOMRect | null>(null);
 
+    // Use ref to access latest hoveredRect in event handlers without re-creating them
+    const hoveredRectRef = useRef<DOMRect | null>(null);
+
+    // Keep ref in sync with state
+    useEffect(() => {
+        hoveredRectRef.current = hoveredRect;
+    }, [hoveredRect]);
+
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (!isVisible) setIsVisible(true);
 
             // Always update position based on whether we're hovering or not
-            if (hoveredRect) {
+            if (hoveredRectRef.current) {
                 // Small cursor centered on mouse
                 mouseX.set(e.clientX - CURSOR_SIZE_SMALL / 2);
                 mouseY.set(e.clientY - CURSOR_SIZE_SMALL / 2);
@@ -74,7 +82,7 @@ export default function CursorGradient() {
             window.removeEventListener("mouseover", handleMouseOver);
             window.removeEventListener("mouseout", handleMouseOut);
         };
-    }, [mouseX, mouseY, isVisible, hoveredRect]);
+    }, [mouseX, mouseY, isVisible]); // Removed hoveredRect from dependencies
 
     if (!isVisible) return null;
 
@@ -86,12 +94,7 @@ export default function CursorGradient() {
                 height: hoveredRect ? CURSOR_SIZE_SMALL : CURSOR_SIZE,
                 borderRadius: "50%",
             }}
-            transition={{
-                type: "spring",
-                stiffness: 150,
-                damping: 25,
-                mass: 0.5
-            }}
+            transition={{ type: "spring", ...springConfig }}
             style={{
                 x: springX,
                 y: springY,
