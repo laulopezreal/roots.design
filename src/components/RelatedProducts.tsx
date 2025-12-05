@@ -11,7 +11,10 @@ interface RelatedProductsProps {
 export default function RelatedProducts({ currentProductId, category, brand }: RelatedProductsProps) {
   // Try to find products from same brand first, then same category
   const { products, loading } = useProducts(
-    brand ? { brand } : category ? { category } : undefined
+    {
+      ...(brand ? { brand } : category ? { category } : {}),
+      limit: 5
+    }
   );
 
   const relatedProducts = products

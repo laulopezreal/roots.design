@@ -18,6 +18,7 @@ export interface ProductFilters {
   maxPrice?: number;
   inStockOnly?: boolean;
   search?: string;
+  limit?: number;
 }
 
 export interface ProductSort {
@@ -73,6 +74,11 @@ export function useProducts(filters?: ProductFilters, sort?: ProductSort) {
           query = query.or(`name.ilike.%${filters.search}%,brand.ilike.%${filters.search}%,designer.ilike.%${filters.search}%`);
         }
 
+        // Apply limit
+        if (filters?.limit) {
+          query = query.limit(filters.limit);
+        }
+
         // Apply sorting
         if (sort) {
           query = query.order(sort.field, { ascending: sort.order === 'asc' });
@@ -105,6 +111,7 @@ export function useProducts(filters?: ProductFilters, sort?: ProductSort) {
     filters?.maxPrice,
     filters?.inStockOnly,
     filters?.search,
+    filters?.limit,
     sort?.field,
     sort?.order,
   ]);
