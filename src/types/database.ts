@@ -24,6 +24,7 @@ export interface Database {
           featured_rank: number | null
           in_stock: boolean
           inventory_count: number
+          model_url: string | null
           created_at: string
           updated_at: string
         }
@@ -41,6 +42,7 @@ export interface Database {
           featured_rank?: number | null
           in_stock?: boolean
           inventory_count?: number
+          model_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -58,6 +60,7 @@ export interface Database {
           featured_rank?: number | null
           in_stock?: boolean
           inventory_count?: number
+          model_url?: string | null
           created_at?: string
           updated_at?: string
         }

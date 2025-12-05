@@ -4,12 +4,15 @@ import { motion } from 'framer-motion';
 import Header from './Header';
 import Breadcrumbs from './Breadcrumbs';
 import ProductImageGallery from './ProductImageGallery';
+import Product3DViewer from './Product3DViewer';
 import RelatedProducts from './RelatedProducts';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from './cart/CartContext';
-import { Minus, Plus, Package, Truck } from 'lucide-react';
+import { Minus, Plus, Package, Truck, Box, Image as ImageIcon } from 'lucide-react';
+
+const SAMPLE_MODEL_URL = "https://res.cloudinary.com/dez0k7k6x/image/upload/v1764847540/sam3d-splat_kq0wt4.ply";
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -22,6 +25,7 @@ export default function ProductDetailPage() {
   const { addItem, enabled: cartEnabled } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [show3D, setShow3D] = useState(false);
 
   const handleQuantityChange = (value: string) => {
     const parsed = parseInt(value, 10);
@@ -105,16 +109,45 @@ export default function ProductDetailPage() {
         <div className="px-4 md:px-8 mb-16">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-              {/* Image Gallery */}
+              {/* Image Gallery / 3D Viewer */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
+                className="relative"
               >
-                <ProductImageGallery
-                  images={product.images || []}
-                  productName={product.name}
-                />
+                {/* View Toggle */}
+                {product.model_url && (
+                  <div className="absolute top-4 right-4 z-10 flex gap-2 bg-white/80 backdrop-blur-sm p-1 rounded-lg shadow-sm border border-white/50">
+                    <Button
+                      variant={!show3D ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setShow3D(false)}
+                      className="h-8 text-xs"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5 mr-1.5" />
+                      Photos
+                    </Button>
+                    <Button
+                      variant={show3D ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setShow3D(true)}
+                      className="h-8 text-xs"
+                    >
+                      <Box className="w-3.5 h-3.5 mr-1.5" />
+                      3D View
+                    </Button>
+                  </div>
+                )}
+
+                {show3D && product.model_url ? (
+                  <Product3DViewer modelUrl={product.model_url} />
+                ) : (
+                  <ProductImageGallery
+                    images={product.images || []}
+                    productName={product.name}
+                  />
+                )}
               </motion.div>
 
               {/* Product Info */}
