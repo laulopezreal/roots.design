@@ -1,8 +1,8 @@
 -- Insert products
-INSERT INTO products (id, name, brand, designer, price, category, collection, finish, tags, featured, featured_rank, in_stock, inventory_count)
+INSERT INTO products (id, name, brand, designer, price, category, collection, finish, tags, featured, featured_rank, in_stock, inventory_count, model_url)
 VALUES
-  ('00000000-0000-0000-0000-000000000001', 'ANC66 Side Table', 'Heilig Objects', NULL, 249.00, 'side_table', 'The Collection', NULL, ARRAY['heilig objects', 'design'], true, 1, true, 10),
-  ('00000000-0000-0000-0000-000000000002', 'Armchair - Dunas XL', 'InClass', NULL, 189.00, 'chairs', 'The Collection', NULL, ARRAY['chair', 'armchair'], true, 2, true, 5);
+  ('00000000-0000-0000-0000-000000000001', 'ANC66 Side Table', 'Heilig Objects', '', 249.00, 'side_table', 'The Collection', '', ARRAY['heilig objects', 'design'], true, 1, true, 10, NULL),
+  ('00000000-0000-0000-0000-000000000002', 'Armchair - Dunas XL', 'InClass', '', 189.00, 'chairs', 'The Collection', '', ARRAY['chair', 'armchair'], true, 2, true, 5, 'https://res.cloudinary.com/dez0k7k6x/raw/upload/v1764936302/sam3d-splat_lcfkj3.splat');
 
 -- Insert product images
 INSERT INTO product_images (product_id, cloudinary_public_id, alt_text, display_order, widths, sizes)
