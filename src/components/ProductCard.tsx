@@ -107,6 +107,7 @@ const ProductCard = ({
                   publicId={img.publicId}
                   alt={img.alt?.trim() ? img.alt : name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  priority={index === 0} // Prioritize the first image
                 />
               </div>
             ))}
@@ -119,9 +120,9 @@ const ProductCard = ({
             />
           )}
 
-          {/* Carousel Navigation - Always visible */}
+          {/* Carousel Navigation - Always render but hide until hover */}
           {allImages.length > 1 && (
-            <>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <button
                 onClick={prevImage}
                 disabled={currentImageIndex === 0}
@@ -152,7 +153,7 @@ const ProductCard = ({
                   />
                 ))}
               </div>
-            </>
+            </div>
           )}
 
           {/* Overlay that appears on hover */}
