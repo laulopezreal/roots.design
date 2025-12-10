@@ -142,7 +142,7 @@ const HeroSection = ({
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:w-1/2 max-w-2xl z-10"
         >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-light text-gray-900 mb-8 leading-[1.15] tracking-tight overflow-visible pb-2">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-light text-gray-900 mb-8 leading-[1.15] tracking-tight overflow-visible pb-2 min-h-[4.5rem] md:min-h-[5rem]">
             {headingContent}
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed font-light tracking-wide max-w-xl">
@@ -172,7 +172,7 @@ const HeroSection = ({
           transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative w-full md:w-1/2 flex justify-center md:justify-end z-10"
         >
-          <div className="relative w-full max-w-2xl group">
+          <div className="relative w-full max-w-2xl group aspect-square">
             {/* Decorative frame effect - warm monochromatic with rich accents */}
             <div className="absolute -inset-4 bg-gradient-to-br from-orange-200/40 via-amber-100/35 to-rose-100/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
@@ -180,8 +180,11 @@ const HeroSection = ({
               <img
                 src="/images/hero_warm_chair.png"
                 alt="Contemporary sculptural armchair in terracotta leather"
+                width="800"
+                height="800"
                 className="w-full h-auto transition-all duration-700 group-hover:scale-[1.03]"
                 loading="eager"
+                fetchPriority="high"
               />
               {/* Subtle overlay for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
