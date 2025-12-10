@@ -22,11 +22,32 @@ const ProductCard = ({
   brand = "Roots Studio",
   price = 299,
   image,
+  images = [],
   onQuickAdd,
-}: ProductCardProps) => {
+}: ProductCardProps & { images?: CloudinaryImageProps[] }) => {
   const { addItem, enabled: cartEnabled } = useCart();
-  const productImage = image && image.publicId ? image : undefined;
-  const imageAlt = productImage?.alt?.trim() ? productImage.alt : name;
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  // Combine single image and images array, filtering valid ones
+  const allImages = React.useMemo(() => {
+    const imgs = images && images.length > 0 ? images : (image ? [image] : []);
+    return imgs.filter(img => img.publicId);
+  }, [image, images]);
+
+  const currentImage = allImages[currentImageIndex];
+  const imageAlt = currentImage?.alt?.trim() ? currentImage.alt : name;
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
 
   const handleQuickAdd = () => {
     if (!cartEnabled) {
@@ -47,7 +68,7 @@ const ProductCard = ({
       name,
       brand,
       price,
-      image: productImage,
+      image: currentImage,
     });
   };
 
@@ -59,28 +80,57 @@ const ProductCard = ({
       transition={{ duration: 0.5 }}
     >
       <Link to={`/product/${id}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden">
-        {/* <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        /> */}
-        {productImage ? (
-          <CloudinaryImage
-            publicId={productImage.publicId}
-            alt={imageAlt}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <div
-            aria-hidden="true"
-            className="w-full h-full bg-gray-100 transition-transform duration-700 group-hover:scale-105"
-          />
-        )}
+        <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+          {currentImage ? (
+            <CloudinaryImage
+              key={currentImage.publicId}
+              publicId={currentImage.publicId}
+              alt={imageAlt}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="w-full h-full bg-gray-100 transition-transform duration-700 group-hover:scale-105"
+            />
+          )}
 
+          {/* Carousel Navigation */}
+          {allImages.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white z-20"
+                aria-label="Previous image"
+              >
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 9L1 5L5 1" stroke="#1F2937" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white z-20"
+                aria-label="Next image"
+              >
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 9L5 5L1 1" stroke="#1F2937" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                {allImages.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`w-1.5 h-1.5 rounded-full shadow-sm transition-colors ${idx === currentImageIndex ? 'bg-white' : 'bg-white/50'}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Overlay that appears on hover */}
-          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
         </div>
       </Link>
