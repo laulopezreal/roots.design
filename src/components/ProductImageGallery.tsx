@@ -89,29 +89,27 @@ export default function ProductImageGallery({ images: rawImages, productName }: 
           </div>
         </div>
 
-        {/* Navigation buttons */}
-        {selectedIndex > 0 && (
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
-            aria-label="Previous image"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-        )}
-        {selectedIndex < images.length - 1 && (
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
-            aria-label="Next image"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        )}
+        {/* Navigation buttons - Always visible */}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={scrollPrev}
+          disabled={selectedIndex === 0}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          aria-label="Previous image"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={scrollNext}
+          disabled={selectedIndex >= images.length - 1}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          aria-label="Next image"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Thumbnail navigation */}
@@ -124,8 +122,8 @@ export default function ProductImageGallery({ images: rawImages, productName }: 
               emblaApi?.scrollTo(index);
             }}
             className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${index === selectedIndex
-                ? 'border-gray-900'
-                : 'border-gray-200 hover:border-gray-400'
+              ? 'border-gray-900'
+              : 'border-gray-200 hover:border-gray-400'
               }`}
           >
             <CloudinaryImage
