@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "./ui/button";
 import { useCart } from "./cart/CartContext";
 import CloudinaryImage, { Props as CloudinaryImageProps } from "./CloudinaryImage";
@@ -27,6 +28,7 @@ const ProductCard = ({
 }: ProductCardProps & { images?: CloudinaryImageProps[] }) => {
   const { addItem, enabled: cartEnabled } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
   // Combine single image and images array, filtering valid ones
   const allImages = React.useMemo(() => {
@@ -37,16 +39,30 @@ const ProductCard = ({
   const currentImage = allImages[currentImageIndex];
   const imageAlt = currentImage?.alt?.trim() ? currentImage.alt : name;
 
+  React.useEffect(() => {
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setCurrentImageIndex(emblaApi.selectedScrollSnap());
+    };
+
+    emblaApi.on('select', onSelect);
+
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
+
   const nextImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    emblaApi?.scrollNext();
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+    emblaApi?.scrollPrev();
   };
 
   const handleQuickAdd = () => {
@@ -80,27 +96,36 @@ const ProductCard = ({
       transition={{ duration: 0.5 }}
     >
       <Link to={`/product/${id}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
-          {currentImage ? (
-            <CloudinaryImage
-              key={currentImage.publicId}
-              publicId={currentImage.publicId}
-              alt={imageAlt}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          ) : (
+        <div className="relative aspect-[3/4] overflow-hidden bg-gray-100" ref={emblaRef}>
+          <div className="flex h-full touch-pan-y">
+            {allImages.map((img, index) => (
+              <div
+                key={`${img.publicId}-${index}`}
+                className="flex-[0_0_100%] min-w-0 h-full relative"
+              >
+                <CloudinaryImage
+                  publicId={img.publicId}
+                  alt={img.alt?.trim() ? img.alt : name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+            ))}
+          </div>
+
+          {allImages.length === 0 && (
             <div
               aria-hidden="true"
-              className="w-full h-full bg-gray-100 transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full bg-gray-100 transition-transform duration-700 group-hover:scale-105 absolute inset-0"
             />
           )}
 
-          {/* Carousel Navigation */}
+          {/* Carousel Navigation - Always visible */}
           {allImages.length > 1 && (
             <>
               <button
                 onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white z-20"
+                disabled={currentImageIndex === 0}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full transition-opacity duration-200 hover:bg-white z-30 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto"
                 aria-label="Previous image"
               >
                 <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +134,8 @@ const ProductCard = ({
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white z-20"
+                disabled={currentImageIndex >= allImages.length - 1}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full transition-opacity duration-200 hover:bg-white z-30 disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto"
                 aria-label="Next image"
               >
                 <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +144,7 @@ const ProductCard = ({
               </button>
 
               {/* Dots Indicator */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-30 transition-opacity duration-200 pointer-events-none">
                 {allImages.map((_, idx) => (
                   <div
                     key={idx}
