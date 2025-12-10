@@ -17,7 +17,8 @@ interface ProductImageGalleryProps {
   productName: string;
 }
 
-export default function ProductImageGallery({ images, productName }: ProductImageGalleryProps) {
+export default function ProductImageGallery({ images: rawImages, productName }: ProductImageGalleryProps) {
+  const images = rawImages.slice(0, 8);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
@@ -121,11 +122,10 @@ export default function ProductImageGallery({ images, productName }: ProductImag
               setSelectedIndex(index);
               emblaApi?.scrollTo(index);
             }}
-            className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
-              index === selectedIndex
+            className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${index === selectedIndex
                 ? 'border-gray-900'
                 : 'border-gray-200 hover:border-gray-400'
-            }`}
+              }`}
           >
             <CloudinaryImage
               publicId={image.cloudinary_public_id}
