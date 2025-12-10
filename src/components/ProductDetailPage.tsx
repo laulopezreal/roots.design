@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from './Header';
 import Breadcrumbs from './Breadcrumbs';
 import ProductImageGallery from './ProductImageGallery';
-import Product3DViewer from './Product3DViewer';
+// Lazy load 3D viewer to avoid loading Three.js on initial page load
+const Product3DViewer = lazy(() => import('./Product3DViewer'));
 import RelatedProducts from './RelatedProducts';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -141,7 +142,9 @@ export default function ProductDetailPage() {
                 )}
 
                 {show3D && product.model_url ? (
-                  <Product3DViewer modelUrl={product.model_url} />
+                  <Suspense fallback={<div className="w-full h-full bg-gray-100 flex items-center justify-center">Loading 3D Viewer...</div>}>
+                    <Product3DViewer modelUrl={product.model_url} />
+                  </Suspense>
                 ) : (
                   <ProductImageGallery
                     images={product.images || []}

@@ -1,10 +1,11 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
-import CartPage from "./components/CartPage";
-import CursorGradient from "./components/CursorGradient";
-import ProductDetailPage from "./components/ProductDetailPage";
-import CollectionPage from "./pages/CollectionPage";
+
+const Home = lazy(() => import("./components/home"));
+const CartPage = lazy(() => import("./components/CartPage"));
+const CursorGradient = lazy(() => import("./components/CursorGradient"));
+const ProductDetailPage = lazy(() => import("./components/ProductDetailPage"));
+const CollectionPage = lazy(() => import("./pages/CollectionPage"));
 import routes from "tempo-routes";
 
 function App() {
