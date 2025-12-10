@@ -18,7 +18,8 @@ interface ProductImageGalleryProps {
 }
 
 export default function ProductImageGallery({ images: rawImages, productName }: ProductImageGalleryProps) {
-  const images = rawImages.slice(0, 8);
+  const MAX_GALLERY_IMAGES = 8;
+  const images = rawImages.slice(0, MAX_GALLERY_IMAGES);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
