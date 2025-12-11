@@ -31,33 +31,45 @@ type CartAction =
   | { type: "SET_ITEMS"; payload: CartItem[] }
   | { type: "CLEAR_CART" };
 
-export interface CartContextValue {
+export interface CartStateValue {
   items: CartItem[];
   totalItems: number;
   subtotal: number;
   enabled: boolean;
+}
+
+export interface CartActionsValue {
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  enabled: boolean;
 }
+
+export type CartContextValue = CartStateValue & CartActionsValue;
 
 const initialState: CartState = {
   items: [],
 };
 
-const CartContext = createContext<CartContextValue | undefined>(undefined);
+const CartStateContext = createContext<CartStateValue | undefined>(undefined);
+const CartActionsContext = createContext<CartActionsValue | undefined>(undefined);
 
 const STORAGE_KEY = "roots.design.cart";
-const DISABLED_CART_CONTEXT: CartContextValue = {
+
+const DISABLED_CART_STATE: CartStateValue = {
   items: [],
   totalItems: 0,
   subtotal: 0,
   enabled: false,
+};
+
+const DISABLED_CART_ACTIONS: CartActionsValue = {
   addItem: () => undefined,
   removeItem: () => undefined,
   updateQuantity: () => undefined,
   clearCart: () => undefined,
+  enabled: false,
 };
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -72,9 +84,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
           items: state.items.map((cartItem) =>
             cartItem.id === item.id
               ? {
-                  ...cartItem,
-                  quantity: cartItem.quantity + quantity,
-                }
+                ...cartItem,
+                quantity: cartItem.quantity + quantity,
+              }
               : cartItem,
           ),
         };
@@ -107,9 +119,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         items: state.items.map((item) =>
           item.id === id
             ? {
-                ...item,
-                quantity,
-              }
+              ...item,
+              quantity,
+            }
             : item,
         ),
       };
@@ -150,7 +162,13 @@ function deserializeCartItems(value: unknown): CartItem[] {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   if (!CART_ENABLED) {
-    return <CartContext.Provider value={DISABLED_CART_CONTEXT}>{children}</CartContext.Provider>;
+    return (
+      <CartStateContext.Provider value={DISABLED_CART_STATE}>
+        <CartActionsContext.Provider value={DISABLED_CART_ACTIONS}>
+          {children}
+        </CartActionsContext.Provider>
+      </CartStateContext.Provider>
+    );
   }
 
   const [state, dispatch] = useReducer(
@@ -213,7 +231,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "CLEAR_CART" });
   }, []);
 
-  const value = useMemo(() => {
+  const stateValue = useMemo(() => {
     const totalItems = state.items.reduce((total, item) => total + item.quantity, 0);
     const subtotal = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -222,26 +240,48 @@ export function CartProvider({ children }: { children: ReactNode }) {
       totalItems,
       subtotal,
       enabled: true,
-      addItem,
-      removeItem,
-      updateQuantity,
-      clearCart,
-    } satisfies CartContextValue;
-  }, [state.items, addItem, removeItem, updateQuantity, clearCart]);
+    };
+  }, [state.items]);
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  const actionsValue = useMemo(() => ({
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart,
+    enabled: true,
+  }), [addItem, removeItem, updateQuantity, clearCart]);
+
+  return (
+    <CartStateContext.Provider value={stateValue}>
+      <CartActionsContext.Provider value={actionsValue}>
+        {children}
+      </CartActionsContext.Provider>
+    </CartStateContext.Provider>
+  );
 }
 
-export function useCart(): CartContextValue {
-  const context = useContext(CartContext);
-
+export function useCartState(): CartStateValue {
+  const context = useContext(CartStateContext);
   if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
+    throw new Error("useCartState must be used within a CartProvider");
   }
-
   return context;
 }
 
+export function useCartActions(): CartActionsValue {
+  const context = useContext(CartActionsContext);
+  if (!context) {
+    throw new Error("useCartActions must be used within a CartProvider");
+  }
+  return context;
+}
+
+export function useCart(): CartContextValue {
+  const state = useCartState();
+  const actions = useCartActions();
+  return { ...state, ...actions };
+}
+
 export function useCartEnabled(): boolean {
-  return useCart().enabled;
+  return useCartState().enabled;
 }

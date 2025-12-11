@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "./ui/button";
-import { useCart } from "./cart/CartContext";
+import { useCartActions } from "./cart/CartContext";
 import CloudinaryImage, { Props as CloudinaryImageProps } from "./CloudinaryImage";
 
 interface ProductCardProps {
@@ -16,7 +16,7 @@ interface ProductCardProps {
   onQuickAdd?: () => void;
 }
 
-const ProductCard = ({
+const ProductCard = memo(({
   id = "1",
   name = "Pendant Light",
   designer = "",
@@ -26,7 +26,7 @@ const ProductCard = ({
   images = [],
   onQuickAdd,
 }: ProductCardProps & { images?: CloudinaryImageProps[] }) => {
-  const { addItem, enabled: cartEnabled } = useCart();
+  const { addItem, enabled: cartEnabled } = useCartActions();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
@@ -37,7 +37,7 @@ const ProductCard = ({
   }, [image, images]);
 
   const currentImage = allImages[currentImageIndex];
-  const imageAlt = currentImage?.alt?.trim() ? currentImage.alt : name;
+  // Remove unused var: imageAlt
 
   React.useEffect(() => {
     if (!emblaApi) return;
@@ -98,19 +98,27 @@ const ProductCard = ({
       <Link to={`/product/${id}`} className="block">
         <div className="relative aspect-[3/4] overflow-hidden bg-gray-100" ref={emblaRef}>
           <div className="flex h-full touch-pan-y">
-            {allImages.map((img, index) => (
-              <div
-                key={`${img.publicId}-${index}`}
-                className="flex-[0_0_100%] min-w-0 h-full relative"
-              >
-                <CloudinaryImage
-                  publicId={img.publicId}
-                  alt={img.alt?.trim() ? img.alt : name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority={index === 0} // Prioritize the first image
-                />
-              </div>
-            ))}
+            {allImages.map((img, index) => {
+              // Virtualization: only render current, prev, and next images
+              const shouldRender = Math.abs(currentImageIndex - index) <= 1;
+
+              return (
+                <div
+                  key={`${img.publicId}-${index}`}
+                  className="flex-[0_0_100%] min-w-0 h-full relative"
+                >
+                  {shouldRender && (
+                    <CloudinaryImage
+                      publicId={img.publicId}
+                      alt={img.alt?.trim() ? img.alt : name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      priority={index === 0} // Prioritize the first image
+                      widths={[400, 600, 800]} // Optimization: Provide specific widths
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {allImages.length === 0 && (
@@ -190,6 +198,6 @@ const ProductCard = ({
       </div>
     </motion.div>
   );
-};
+});
 
 export default ProductCard;

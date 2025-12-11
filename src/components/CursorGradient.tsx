@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
 
 const CURSOR_SIZE = 300;
@@ -8,6 +8,9 @@ export default function CursorGradient() {
     const mouseY = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
 
+    // Optimization: Use ref to track if rAF is pending
+    const rafId = useRef<number | null>(null);
+
     const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
@@ -15,13 +18,22 @@ export default function CursorGradient() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            // Center the cursor based on its current size
-            const currentSize = isHovering ? 20 : CURSOR_SIZE;
-            mouseX.set(e.clientX - currentSize / 2);
-            mouseY.set(e.clientY - currentSize / 2);
+        // Optimization: Check for touch device to avoid running on mobile
+        const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+        if (isTouchDevice) return;
 
-            if (!isVisible) setIsVisible(true);
+        const handleMouseMove = (e: MouseEvent) => {
+            if (rafId.current) return;
+
+            rafId.current = requestAnimationFrame(() => {
+                // Center the cursor based on its current size
+                const currentSize = isHovering ? 20 : CURSOR_SIZE;
+                mouseX.set(e.clientX - currentSize / 2);
+                mouseY.set(e.clientY - currentSize / 2);
+
+                if (!isVisible) setIsVisible(true);
+                rafId.current = null;
+            });
         };
 
         const handleMouseOver = (e: MouseEvent) => {
@@ -46,6 +58,7 @@ export default function CursorGradient() {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseover", handleMouseOver);
             window.removeEventListener("mouseout", handleMouseOut);
+            if (rafId.current) cancelAnimationFrame(rafId.current);
         };
     }, [mouseX, mouseY, isVisible, isHovering]);
 
