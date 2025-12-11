@@ -1,8 +1,11 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
-import CartPage from "./components/CartPage";
-import CursorGradient from "./components/CursorGradient";
+
+const Home = lazy(() => import("./components/home"));
+const CartPage = lazy(() => import("./components/CartPage"));
+const CursorGradient = lazy(() => import("./components/CursorGradient"));
+const ProductDetailPage = lazy(() => import("./components/ProductDetailPage"));
+const CollectionPage = lazy(() => import("./pages/CollectionPage"));
 import routes from "tempo-routes";
 
 function App() {
@@ -13,6 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/collections/:type/:value" element={<CollectionPage />} />
         </Routes>
         {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
       </>

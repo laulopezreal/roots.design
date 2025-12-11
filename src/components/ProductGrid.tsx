@@ -2,11 +2,9 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import ProductCard from "./ProductCard";
-import { productsList } from "../Products/productList"
-import { Product } from "../Products/productProps"
+import { useProducts, Product } from "../hooks/useProducts";
 
 interface ProductGridProps {
-  products?: Product[];
   title?: string;
   subtitle?: string;
   id?: string;
@@ -31,20 +29,21 @@ const PRICE_RANGES = [
 const normalizeText = (value: string) =>
   value
     ? value
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/\p{Diacritic}/gu, "")
-        .replace(/\s+/g, " ")
-        .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .replace(/\s+/g, " ")
+      .trim()
     : "";
 
 const ProductGrid = ({
-  products = productsList,
   title = "Our Collection",
   subtitle = "Discover our curated selection of premium lighting solutions",
   id,
   className = "",
 }: ProductGridProps) => {
+  // Fetch products from Supabase
+  const { products, loading: productsLoading } = useProducts();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
@@ -209,11 +208,10 @@ const ProductGrid = ({
               <button
                 key={category.id}
                 onClick={() => setActiveFilter(category.id)}
-                className={`px-4 py-2 text-sm transition-colors duration-300 ${
-                  activeFilter === category.id
+                className={`px-4 py-2 text-sm transition-colors duration-300 ${activeFilter === category.id
                     ? "text-black border-b border-black"
                     : "text-gray-500 hover:text-black"
-                }`}
+                  }`}
               >
                 {category.name}
               </button>
@@ -238,28 +236,63 @@ const ProductGrid = ({
           )}
         </div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              brand={product.brand}
-              price={product.price}
-              image={product.image}
-            />
-          ))}
-        </motion.div>
-
-        {filteredProducts.length === 0 && (
+        {productsLoading ? (
           <div className="text-center py-16">
-            <p className="text-gray-500">No products match those filters just yet.</p>
+            <p className="text-gray-500">Loading products...</p>
           </div>
+        ) : (
+          <>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {filteredProducts.map((product) => {
+                const primaryImage = product.images?.[0];
+                const productImages = product.images?.sort((a, b) => (a.display_order || 0) - (b.display_order || 0)).map(img => ({
+                  publicId: img.cloudinary_public_id,
+                  alt: img.alt_text || product.name,
+                  widths: img.widths || [400, 800, 1200, 1600],
+                  sizes: img.sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px',
+                }));
+
+                return (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    name={product.name}
+                    brand={product.brand || undefined}
+                    price={product.price}
+                    image={primaryImage ? {
+                      publicId: primaryImage.cloudinary_public_id,
+                      alt: primaryImage.alt_text || product.name,
+                      widths: primaryImage.widths,
+                      sizes: primaryImage.sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px',
+                    } : undefined}
+                    images={productImages}
+                  />
+                );
+              })}
+            </motion.div>
+
+            {filteredProducts.length === 0 && (
+              <div className="text-center py-16">
+                {products.length === 0 ? (
+                  <div className="max-w-md mx-auto bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <p className="text-sm text-blue-900 mb-2 font-medium">
+                      🔧 Database Not Configured
+                    </p>
+                    <p className="text-xs text-blue-700">
+                      Products will appear here once Supabase is set up. See IMPLEMENTATION.md for setup instructions.
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">No products match those filters just yet.</p>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
